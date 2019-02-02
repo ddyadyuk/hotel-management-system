@@ -13,6 +13,9 @@
         <spotbugs.version>3.1.10</spotbugs.version>
         <jacoco.version>0.8.2</jacoco.version>
         <maven-compiller.version>3.8.0</maven-compiller.version>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+
     </properties>
 
     <modules>
@@ -112,8 +115,8 @@
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
-                    <source>${java.version}</source>
-                    <target>${java.version}</target>
+                    <source>${maven.compiler.source}</source>
+                    <target>${maven.compiler.target}</target>
                 </configuration>
             </plugin>
         </plugins>
