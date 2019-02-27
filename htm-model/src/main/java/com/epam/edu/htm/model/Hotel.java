@@ -1,52 +1,96 @@
 package com.epam.edu.htm.model;
 
-import java.util.List;
-
+/**
+ * Hotel Model Object.
+ *
+ * <P>Various hotel attributes</P>
+ *
+ * @author Dmitry Dyadyuk
+ * @version 1.0
+ */
 public class Hotel {
     private Long idHotel;
-    private Contact contacts;
+    private Contact contact;
     private String hotelType;
-    private Address addresses;
+    private Address address;
 
+    /**
+     * Getshotel id.
+     *
+     * @return the hotel id
+     */
     public Long getIdHotel() {
         return idHotel;
     }
 
+    /**
+     * Sets hotel id.
+     *
+     * @param idHotel the hotel id
+     */
     public void setIdHotel(Long idHotel) {
         this.idHotel = idHotel;
     }
 
-    public Contact getContacts() {
-        return contacts;
+    /**
+     * Gets hotel contact.
+     *
+     * @return the hotel contact
+     */
+    public Contact getContact() {
+        return contact;
     }
 
-    public void setContacts(Contact contacts) {
-        this.contacts = contacts;
+    /**
+     * Sets hotel contact.
+     * @param contact the hotel contact
+     */
+    public void setContact(Contact contact) {
+        this.contact = contact;
     }
 
+    /**
+     * Gets type of the hotel.
+     *
+     * @return the type of the hotel
+     */
     public String getHotelType() {
         return hotelType;
     }
 
+    /**
+     * Sets type of the hotel.
+     *
+     * @param hotelType the type of the hotel
+     */
     public void setHotelType(String hotelType) {
         this.hotelType = hotelType;
     }
 
-    public Address getAddresses() {
-        return addresses;
+    /**
+     * Gets hotel address.
+     *
+     * @return the hotel address
+     */
+    public Address getAddress() {
+        return address;
     }
 
-    public void setAddresses(Address addresses) {
-        this.addresses = addresses;
+    /**
+     * Sets hotel address.
+     * @param address the hotel address
+     */
+    public void setAddress(Address address) {
+        this.address = address;
     }
 
     @Override
     public String toString() {
         return "Hotel{" +
                 "idHotel=" + idHotel +
-                ", contacts=" + contacts +
+                ", contact=" + contact +
                 ", hotelType='" + hotelType + '\'' +
-                ", addresses=" + addresses +
+                ", address=" + address +
                 '}';
     }
 }

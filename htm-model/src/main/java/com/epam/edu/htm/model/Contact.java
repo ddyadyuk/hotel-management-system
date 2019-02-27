@@ -1,30 +1,68 @@
 package com.epam.edu.htm.model;
 
+/**
+ * Contact Model Object.
+ *
+ * <P>Various contact attributes</P>
+ *
+ * @author Dmitry Dyadyuk
+ * @version 1.0
+ */
 public class Contact {
     private Long idContact;
     private String phone;
     private String email;
 
+    /**
+     * Gets contact id.
+     *
+     * @return the contact id
+     */
     public Long getIdContact() {
         return idContact;
     }
 
+    /**
+     * Sets contact id.
+     *
+     * @param idContact the contact id
+     */
     public void setIdContact(Long idContact) {
         this.idContact = idContact;
     }
 
+    /**
+     * Gets phone number.
+     *
+     * @return the phone number
+     */
     public String getPhone() {
         return phone;
     }
 
+    /**
+     * Sets phone number.
+     *
+     * @param phone the phone number
+     */
     public void setPhone(String phone) {
         this.phone = phone;
     }
 
+    /**
+     * Gets email.
+     *
+     * @return the email
+     */
     public String getEmail() {
         return email;
     }
 
+    /**
+     * Sets email.
+     *
+     * @param email the email
+     */
     public void setEmail(String email) {
         this.email = email;
     }
