@@ -1,19 +1,19 @@
 package com.epam.edu.htm.model;
 
 public class Room {
-    private Long roomId;
+    private Long idRoom;
     private String status;
     private Double prisePerHour;
     private Long hotel;
     private Integer roomCapacity;
     private String roomType;
 
-    public Long getRoomId() {
-        return roomId;
+    public Long getIdRoom() {
+        return idRoom;
     }
 
-    public void setRoomId(Long roomId) {
-        this.roomId = roomId;
+    public void setIdRoom(Long idRoom) {
+        this.idRoom = idRoom;
     }
 
     public String getStatus() {
@@ -59,7 +59,7 @@ public class Room {
     @Override
     public String toString() {
         return "Room{" +
-                "roomId=" + roomId +
+                "idRoom=" + idRoom +
                 ", status='" + status + '\'' +
                 ", prisePerHour=" + prisePerHour +
                 ", hotel=" + hotel +

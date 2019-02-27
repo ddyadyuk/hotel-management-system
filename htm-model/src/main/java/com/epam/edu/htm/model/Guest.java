@@ -1,30 +1,30 @@
 package com.epam.edu.htm.model;
 
 public class Guest {
-    private Long guestId;
-    private Long userId;
+    private Long idGuest;
+    private Long idUser;
 
-    public Long getGuestId() {
-        return guestId;
+    public Long getIdGuest() {
+        return idGuest;
     }
 
-    public void setGuestId(Long guestId) {
-        this.guestId = guestId;
+    public void setIdGuest(Long idGuest) {
+        this.idGuest = idGuest;
     }
 
-    public Long getUserId() {
-        return userId;
+    public Long getIdUser() {
+        return idUser;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public void setIdUser(Long idUser) {
+        this.idUser = idUser;
     }
 
     @Override
     public String toString() {
         return "Guest{" +
-                "guestId=" + guestId +
-                ", userId=" + userId +
+                "idGuest=" + idGuest +
+                ", idUser=" + idUser +
                 '}';
     }
 }

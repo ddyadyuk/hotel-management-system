@@ -1,25 +1,27 @@
 package com.epam.edu.htm.model;
 
-public class Hotel {
-    private Long hotelId;
-    private Contact contact;
-    private String hotelType;
-    private Address address;
+import java.util.List;
 
-    public Long getHotelId() {
-        return hotelId;
+public class Hotel {
+    private Long idHotel;
+    private Contact contacts;
+    private String hotelType;
+    private Address addresses;
+
+    public Long getIdHotel() {
+        return idHotel;
     }
 
-    public void setHotelId(Long hotelId) {
-        this.hotelId = hotelId;
+    public void setIdHotel(Long idHotel) {
+        this.idHotel = idHotel;
     }
 
     public Contact getContacts() {
-        return contact;
+        return contacts;
     }
 
     public void setContacts(Contact contacts) {
-        this.contact = contacts;
+        this.contacts = contacts;
     }
 
     public String getHotelType() {
@@ -31,20 +33,20 @@ public class Hotel {
     }
 
     public Address getAddresses() {
-        return address;
+        return addresses;
     }
 
     public void setAddresses(Address addresses) {
-        this.address = addresses;
+        this.addresses = addresses;
     }
 
     @Override
     public String toString() {
         return "Hotel{" +
-                "hotelId=" + hotelId +
-                ", contacts=" + contact +
+                "idHotel=" + idHotel +
+                ", contacts=" + contacts +
                 ", hotelType='" + hotelType + '\'' +
-                ", address=" + address +
+                ", addresses=" + addresses +
                 '}';
     }
 }

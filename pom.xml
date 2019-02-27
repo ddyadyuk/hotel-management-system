@@ -23,6 +23,7 @@
 
     <modules>
         <module>htm-model</module>
+        <module>htm-core</module>
     </modules>
 
     <dependencyManagement>

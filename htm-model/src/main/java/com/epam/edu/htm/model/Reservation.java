@@ -3,7 +3,7 @@ package com.epam.edu.htm.model;
 import java.sql.Date;
 
 public class Reservation {
-    private Long reservationId;
+    private Long idReservation;
     private String country;
     private String roomType;
     private Date startBooking;
@@ -12,12 +12,12 @@ public class Reservation {
     private Long guestId;
     private Long hotelId;
 
-    public Long getReservationId() {
-        return reservationId;
+    public Long getIdReservation() {
+        return idReservation;
     }
 
-    public void setReservationId(Long reservationId) {
-        this.reservationId = reservationId;
+    public void setIdReservation(Long idReservation) {
+        this.idReservation = idReservation;
     }
 
     public String getCountry() {
@@ -79,7 +79,7 @@ public class Reservation {
     @Override
     public String toString() {
         return "Reservation{" +
-                "reservationId=" + reservationId +
+                "idReservation=" + idReservation +
                 ", country='" + country + '\'' +
                 ", roomType='" + roomType + '\'' +
                 ", startBooking=" + startBooking +

@@ -9,7 +9,6 @@ public class Address {
     private String street;
     private String postalCode;
 
-
     public Long getAddressId() {
         return addressId;
     }
@@ -29,8 +28,7 @@ public class Address {
     public String getSecondAddress() {
         return secondAddress;
     }
-
-    public void setSecondAddress(String secondAddress) {
+     public void setSecondAddress(String secondAddress) {
         this.secondAddress = secondAddress;
     }
 

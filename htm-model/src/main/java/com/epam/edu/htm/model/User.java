@@ -3,7 +3,7 @@ package com.epam.edu.htm.model;
 public class User {
     private Long userId;
     private String password;
-    private Contact contact;
+    private Contact contacts;
     private Address address;
     private String userTypes;
 
@@ -24,11 +24,11 @@ public class User {
     }
 
     public Contact getContacts() {
-        return contact;
+        return contacts;
     }
 
     public void setContacts(Contact contacts) {
-        this.contact = contacts;
+        this.contacts = contacts;
     }
 
     public Address getAddress() {
@@ -51,7 +51,7 @@ public class User {
     public String toString() {
         return "User{" +
                 "userId=" + userId +
-                ", contacts=" + contact +
+                ", contacts=" + contacts +
                 ", address=" + address +
                 ", userTypes=" + userTypes +
                 '}';
