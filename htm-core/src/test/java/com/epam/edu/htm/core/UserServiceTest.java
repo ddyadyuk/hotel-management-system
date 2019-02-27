@@ -92,7 +92,7 @@ public class UserServiceTest {
     private User create(){
         User user = new User();
         user.setPassword("abc");
-        user.setContacts(new Contact());
+        user.setContact(new Contact());
         user.setAddress(new Address());
         user.setUserTypes("user");
     return user;
