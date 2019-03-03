@@ -13,7 +13,30 @@ public class User {
     private String password;
     private Contact contact;
     private Address address;
-    private String userTypes;
+    private String userType;
+
+    /**
+     * Instantiates a new User.
+     *
+     * @param userId   the user id
+     * @param password the password
+     * @param contact  the contact
+     * @param address  the address
+     * @param userType the user type
+     */
+    public User(Long userId, String password, Contact contact, Address address, String userType) {
+        this.userId = userId;
+        this.password = password;
+        this.contact = contact;
+        this.address = address;
+        this.userType = userType;
+    }
+
+    /**
+     * Instantiates a new User.
+     */
+    public User() {
+    }
 
     /**
      * Gets user id.
@@ -92,17 +115,17 @@ public class User {
      *
      * @return the user type
      */
-    public String getUserTypes() {
-        return userTypes;
+    public String getUserType() {
+        return userType;
     }
 
     /**
      * Sets user type.
      *
-     * @param userTypes the user type
+     * @param userType the user type
      */
-    public void setUserTypes(String userTypes) {
-        this.userTypes = userTypes;
+    public void setUserType(String userType) {
+        this.userType = userType;
     }
 
     @Override
@@ -111,7 +134,7 @@ public class User {
                 "userId=" + userId +
                 ", contact=" + contact +
                 ", address=" + address +
-                ", userTypes=" + userTypes +
+                ", userTypes=" + userType +
                 '}';
     }
 

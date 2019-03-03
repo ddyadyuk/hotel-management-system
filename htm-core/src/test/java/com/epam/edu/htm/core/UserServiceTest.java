@@ -94,7 +94,7 @@ public class UserServiceTest {
         user.setPassword("abc");
         user.setContact(new Contact());
         user.setAddress(new Address());
-        user.setUserTypes("user");
+        user.setUserType("user");
     return user;
     }
 }

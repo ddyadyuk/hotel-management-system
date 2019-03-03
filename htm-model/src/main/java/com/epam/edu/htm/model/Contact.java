@@ -14,6 +14,25 @@ public class Contact {
     private String email;
 
     /**
+     * Instantiates a new Contact.
+     *
+     * @param idContact the id contact
+     * @param phone     the phone
+     * @param email     the email
+     */
+    public Contact(Long idContact, String phone, String email) {
+        this.idContact = idContact;
+        this.phone = phone;
+        this.email = email;
+    }
+
+    /**
+     * Instantiates a new Contact.
+     */
+    public Contact() {
+    }
+
+    /**
      * Gets contact id.
      *
      * @return the contact id
