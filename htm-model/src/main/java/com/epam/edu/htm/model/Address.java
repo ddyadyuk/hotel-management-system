@@ -18,6 +18,33 @@ public class Address {
     private String postalCode;
 
     /**
+     * Instantiates a new Address.
+     */
+    public Address() {
+    }
+
+    /**
+     * Instantiates a new Address.
+     *
+     * @param addressId     the address id
+     * @param firsAddress   the firs address
+     * @param secondAddress the second address
+     * @param thirdAddress  the third address
+     * @param city          the city
+     * @param street        the street
+     * @param postalCode    the postal code
+     */
+    public Address(Long addressId, String firsAddress, String secondAddress, String thirdAddress, String city, String street, String postalCode) {
+        this.addressId = addressId;
+        this.firsAddress = firsAddress;
+        this.secondAddress = secondAddress;
+        this.thirdAddress = thirdAddress;
+        this.city = city;
+        this.street = street;
+        this.postalCode = postalCode;
+    }
+
+    /**
      * Gets AddressId.
      *
      * @return the user address
@@ -67,7 +94,7 @@ public class Address {
      *
      * @param secondAddress the second user address
      */
-     public void setSecondAddress(String secondAddress) {
+    public void setSecondAddress(String secondAddress) {
         this.secondAddress = secondAddress;
     }
 
@@ -92,7 +119,7 @@ public class Address {
     /**
      * Gets city.
      *
-     * @return city
+     * @return city city
      */
     public String getCity() {
         return city;
