@@ -57,7 +57,7 @@ public class Reservation {
     }
 
     /**
-     * Gets room type
+     * Gets room type.
      *
      * @return the room type
      */
@@ -163,15 +163,15 @@ public class Reservation {
 
     @Override
     public String toString() {
-        return "Reservation{" +
-                "idReservation=" + idReservation +
-                ", country='" + country + '\'' +
-                ", roomType='" + roomType + '\'' +
-                ", startBooking=" + startBooking +
-                ", endBooking=" + endBooking +
-                ", roomId=" + roomId +
-                ", guestId=" + guestId +
-                ", hotelId=" + hotelId +
-                '}';
+        return "Reservation{"
+                + "idReservation=" + idReservation
+                + ", country='" + country + '\''
+                + ", roomType='" + roomType + '\''
+                + ", startBooking=" + startBooking
+                + ", endBooking=" + endBooking
+                + ", roomId=" + roomId
+                + ", guestId=" + guestId
+                + ", hotelId=" + hotelId
+                + '}';
     }
 }

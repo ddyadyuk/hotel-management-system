@@ -2,6 +2,8 @@ package com.epam.edu.htm.core.service;
 
 import com.epam.edu.htm.model.User;
 
+import java.util.Optional;
+
 /**
  * The UserOperations interface.
  *
@@ -18,7 +20,7 @@ public interface UserOperations {
      * @param user the user
      * @return user id
      */
-    Long addUser(User user);
+    Optional<Long> addUser(User user);
 
     /**
      * @param id the user id

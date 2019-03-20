@@ -19,29 +19,26 @@ public class Address {
 
     /**
      * Instantiates a new Address.
-     */
-    public Address() {
-    }
-
-    /**
-     * Instantiates a new Address.
      *
      * @param addressId     the address id
      * @param firsAddress   the firs address
-     * @param secondAddress the second address
-     * @param thirdAddress  the third address
      * @param city          the city
      * @param street        the street
      * @param postalCode    the postal code
      */
-    public Address(Long addressId, String firsAddress, String secondAddress, String thirdAddress, String city, String street, String postalCode) {
+    public Address(Long addressId, String firsAddress,
+                    String city, String street, String postalCode) {
         this.addressId = addressId;
         this.firsAddress = firsAddress;
-        this.secondAddress = secondAddress;
-        this.thirdAddress = thirdAddress;
         this.city = city;
         this.street = street;
         this.postalCode = postalCode;
+    }
+
+    /**
+     * Instantiates a new Address.
+     */
+    public Address() {
     }
 
     /**
@@ -172,14 +169,14 @@ public class Address {
 
     @Override
     public String toString() {
-        return "Address{" +
-                "addressId=" + addressId +
-                ", firsAddress='" + firsAddress + '\'' +
-                ", secondAddress='" + secondAddress + '\'' +
-                ", thirdAddress='" + thirdAddress + '\'' +
-                ", city='" + city + '\'' +
-                ", street='" + street + '\'' +
-                ", postalCode='" + postalCode + '\'' +
-                '}';
+        return "Address{"
+                + "addressId=" + addressId
+                + ", firsAddress='" + firsAddress + '\''
+                + ", secondAddress='" + secondAddress + '\''
+                + ", thirdAddress='" + thirdAddress + '\''
+                + ", city='" + city + '\''
+                + ", street='" + street + '\''
+                + ", postalCode='" + postalCode + '\''
+                + '}';
     }
 }

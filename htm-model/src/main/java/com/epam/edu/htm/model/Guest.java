@@ -51,10 +51,10 @@ public class Guest {
 
     @Override
     public String toString() {
-        return "Guest{" +
-                "idGuest=" + idGuest +
-                ", idUser=" + idUser +
-                '}';
+        return "Guest{"
+                + "idGuest=" + idGuest
+                + ", idUser=" + idUser
+                + '}';
     }
 }
 

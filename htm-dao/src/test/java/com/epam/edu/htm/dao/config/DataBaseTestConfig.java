@@ -1,7 +1,7 @@
 package com.epam.edu.htm.dao.config;
 
 import com.epam.edu.htm.core.dao.UserDao;
-import com.epam.edu.htm.dao.UserDaoImpl;
+import com.epam.edu.htm.dao.JdbcUserDao;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
@@ -14,14 +14,13 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.sql.DataSource;
 
-
 @Configuration
 @PropertySource({"classpath:sql.properties"})
 @EnableTransactionManagement
-public class DataBaseConfig {
+public class DataBaseTestConfig {
 
     @Bean
-    public DataSource setData(){
+    public DataSource embeddedDatabase(){
         EmbeddedDatabaseBuilder builder = new EmbeddedDatabaseBuilder();
 
         return builder
@@ -33,16 +32,16 @@ public class DataBaseConfig {
 
     @Bean
     public NamedParameterJdbcTemplate namedParameterJdbcTemplate() {
-        return new NamedParameterJdbcTemplate(setData());
+        return new NamedParameterJdbcTemplate(embeddedDatabase());
     }
 
     @Bean
-    public PlatformTransactionManager txManager(){
-        return new DataSourceTransactionManager(setData());
+    public PlatformTransactionManager transactionManager(){
+        return new DataSourceTransactionManager(embeddedDatabase());
     }
 
     @Bean
     public UserDao userDao() {
-        return new UserDaoImpl(namedParameterJdbcTemplate());
+        return new JdbcUserDao(namedParameterJdbcTemplate());
     }
 }

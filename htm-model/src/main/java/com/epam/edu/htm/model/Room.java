@@ -69,7 +69,7 @@ public class Room {
     }
 
     /**
-     * Gets hotel
+     * Gets hotel.
      *
      * @return the hotel
      */
@@ -124,13 +124,13 @@ public class Room {
 
     @Override
     public String toString() {
-        return "Room{" +
-                "idRoom=" + idRoom +
-                ", status='" + status + '\'' +
-                ", prisePerHour=" + prisePerHour +
-                ", hotel=" + hotel +
-                ", roomCapacity=" + roomCapacity +
-                ", roomType='" + roomType + '\'' +
-                '}';
+        return "Room{"
+                + "idRoom=" + idRoom
+                + ", status='" + status + '\''
+                + ", prisePerHour=" + prisePerHour
+                + ", hotel=" + hotel
+                + ", roomCapacity=" + roomCapacity
+                + ", roomType='" + roomType + '\''
+                + '}';
     }
 }
