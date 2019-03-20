@@ -1,55 +1,94 @@
 package com.epam.edu.htm.dao.dao;
 
 import com.epam.edu.htm.core.dao.UserDao;
-import com.epam.edu.htm.dao.config.DataBaseConfig;
+import com.epam.edu.htm.dao.JdbcUserDao;
 import com.epam.edu.htm.model.Address;
 import com.epam.edu.htm.model.Contact;
 import com.epam.edu.htm.model.User;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.annotation.Rollback;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
-import org.springframework.transaction.annotation.Transactional;
+import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
+import org.mockito.invocation.InvocationOnMock;
+import org.mockito.stubbing.Answer;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
 
-import static org.junit.Assert.assertEquals;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.mockito.Mockito.*;
 
-@ExtendWith(SpringExtension.class)
-@ContextConfiguration(classes = DataBaseConfig.class)
-@Transactional
-@Rollback
 public class UserDaoTest {
-    private static final Long USER_ID = 1L;
-    private static final String USER_PASSWORD = "123";
-    private static final Long CONTACT_ID = 1L;
-    private static final String PHONE = "123";
-    private static final String EMAIL = "ddyadyuk@gmail.com";
-    private static final Contact USER_CONTACT = new Contact(CONTACT_ID, PHONE, EMAIL);
-    private static final Long ADDRESS_ID = 1L;
-    private static final String FIRST_ADDRESS = "634 Applegate Drive Hollis, NY 11423";
-    private static final String SECOND_ADDRESS = "7837 Cottage St. Emporia, KS 66801";
-    private static final String THIRD_ADDRESS = "1 College Drive Lorain, OH 44052";
-    private static final String CITY = "New York";
-    private static final String STREET = "St. Emporia";
-    private static final String POSTAL_CODE = "122333412";
-    private static final Address USER_ADDRESS =
-            new Address(ADDRESS_ID,FIRST_ADDRESS, SECOND_ADDRESS, THIRD_ADDRESS, CITY,STREET ,POSTAL_CODE );
-    private static final String USER_TYPE = "user";
+    private static final Long EXPECTED_ID = 1L;
+    private static String ADDUSER =
+            "insert into USER (password, contact, address, user_type)" +
+                    " values (:password, :contact_id , :address_id, :user_type)";
 
-    @Autowired
+    @Mock
     private UserDao userDao;
+    @Mock
+    private NamedParameterJdbcTemplate jdbcTemplate;
+    @InjectMocks
+    private JdbcUserDao jdbcUserDao;
 
-    @Test
-    public void addUser_NotNull_success() {
-        User user = create();
-        Long result = userDao.addUser(user);
-
-        assertEquals(USER_ID, result);
+    public UserDaoTest(){
+        MockitoAnnotations.initMocks(this);
     }
 
-    private User create(){
-        return new User(USER_ID,USER_PASSWORD, USER_CONTACT,USER_ADDRESS,USER_TYPE );
+    @AfterEach
+    public void after(){
+        verifyNoMoreInteractions(userDao);
+        reset(userDao);
+    }
+
+    @Test
+    public void addUser_UserNotNull_success(){
+        User user = createTestUser();
+
+        when(jdbcTemplate.update(any(), Mockito.any(MapSqlParameterSource.class), Mockito.any(GeneratedKeyHolder.class))).thenAnswer(new Answer() {
+            public Object answer(InvocationOnMock invocation) {
+                Object[] args = invocation.getArguments();
+                Map<String, Object> keyMap = new HashMap<String, Object>();
+                keyMap.put("", 1L);
+                ((GeneratedKeyHolder)args[2]).getKeyList().add(keyMap);
+                return 1;
+            }
+        });
+       Optional<Long> result = jdbcUserDao.addUser(user);
+
+       assertEquals(Optional.of(EXPECTED_ID), result);
+    }
+
+    @Test
+    public void addUser_IsUserNotNull_success(){
+        User user = createTestUser();
+
+        when(jdbcTemplate.update(any(), Mockito.any(MapSqlParameterSource.class), Mockito.any(GeneratedKeyHolder.class))).thenAnswer(new Answer() {
+            public Object answer(InvocationOnMock invocation) {
+                Object[] args = invocation.getArguments();
+                Map<String, Object> keyMap = new HashMap<String, Object>();
+                keyMap.put("", 1L);
+                ((GeneratedKeyHolder)args[2]).getKeyList().add(keyMap);
+                return 1;
+            }
+        });
+        Optional<Long> result = jdbcUserDao.addUser(user);
+
+        assertNotNull(result);
+    }
+    private User createTestUser(){
+        User user = new User();
+        user.setPassword("abc");
+        user.setContact(new Contact());
+        user.setAddress(new Address());
+        user.setUserType("user");
+        return user;
     }
 }

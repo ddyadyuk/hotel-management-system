@@ -86,11 +86,11 @@ public class Hotel {
 
     @Override
     public String toString() {
-        return "Hotel{" +
-                "idHotel=" + idHotel +
-                ", contact=" + contact +
-                ", hotelType='" + hotelType + '\'' +
-                ", address=" + address +
-                '}';
+        return "Hotel{"
+                + "idHotel=" + idHotel
+                + ", contact=" + contact
+                + ", hotelType='" + hotelType + '\''
+                + ", address=" + address
+                + '}';
     }
 }

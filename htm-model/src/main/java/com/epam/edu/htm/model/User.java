@@ -130,13 +130,13 @@ public class User {
 
     @Override
     public String toString() {
-        return "User{" +
-                "userId=" + userId +
-                ", contact=" + contact +
-                ", address=" + address +
-                ", userTypes=" + userType +
-                '}';
+        final StringBuilder sb = new StringBuilder("User{");
+        sb.append("userId=").append(userId);
+        sb.append(", password='").append(password).append('\'');
+        sb.append(", contact=").append(contact);
+        sb.append(", address=").append(address);
+        sb.append(", userType='").append(userType).append('\'');
+        sb.append('}');
+        return sb.toString();
     }
-
-
 }

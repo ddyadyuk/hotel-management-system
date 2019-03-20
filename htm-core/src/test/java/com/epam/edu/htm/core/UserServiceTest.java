@@ -12,6 +12,8 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
+import java.util.Optional;
+
 import static org.junit.Assert.*;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.anyLong;
@@ -30,7 +32,7 @@ public class UserServiceTest {
     }
 
     @AfterEach
-    public void before() {
+    public void after() {
         verifyNoMoreInteractions(userDao);
         Mockito.reset(userDao);
     }
@@ -39,15 +41,15 @@ public class UserServiceTest {
     public void testAddUser_userNotNull_success() {
         User user = create();
 
-        Mockito.when(userDao.addUser(user)).thenReturn(EXPECTED_ID);
-        Long result = userService.addUser(user);
+        Mockito.when(userDao.addUser(user)).thenReturn(Optional.of(EXPECTED_ID));
+        Optional<Long> result = userService.addUser(user);
 
         Mockito.verify(userDao,Mockito.times(1)).addUser(user);
     }
 
     @Test
     public void testAddUser_userNotNull_responseNotnull() {
-        Long result = userService.addUser(create());
+        Optional<Long> result = userService.addUser(create());
 
         assertNotNull(result);
     }
@@ -56,10 +58,10 @@ public class UserServiceTest {
     public void testAddUser_userEquals_success(){
         User user = create();
 
-        Mockito.when(userDao.addUser(user)).thenReturn(EXPECTED_ID);
-        Long result = userService.addUser(user);
+        Mockito.when(userDao.addUser(user)).thenReturn(Optional.of(EXPECTED_ID));
+        Optional<Long> result = userService.addUser(user);
 
-        assertEquals(Long.valueOf(1), result);
+        assertEquals(Optional.of(1L),result);
     }
 
     @Test

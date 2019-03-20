@@ -88,10 +88,10 @@ public class Contact {
 
     @Override
     public String toString() {
-        return "Contact{" +
-                "idContact=" + idContact +
-                ", phone='" + phone + '\'' +
-                ", email='" + email + '\'' +
-                '}';
+        return "Contact{"
+                + "idContact=" + idContact
+                + ", phone='" + phone + '\''
+                + ", email='" + email + '\''
+                + '}';
     }
 }
