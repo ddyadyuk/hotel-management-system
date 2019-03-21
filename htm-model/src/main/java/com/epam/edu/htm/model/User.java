@@ -1,5 +1,9 @@
 package com.epam.edu.htm.model;
 
+import com.epam.edu.htm.model.json.View;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonView;
+
 /**
  * User Model Object.
  *
@@ -8,11 +12,21 @@ package com.epam.edu.htm.model;
  * @author Dmitry Dyadyuk
  * @version 1.0
  */
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class User {
+    @JsonView({View.UserWithoutPassword.class, View.UserWithPassword.class})
     private Long userId;
+
+    @JsonView(View.UserWithPassword.class)
     private String password;
+
+    @JsonView({View.UserWithoutPassword.class, View.UserWithPassword.class})
     private Contact contact;
+
+    @JsonView({View.UserWithoutPassword.class, View.UserWithPassword.class})
     private Address address;
+
+    @JsonView({View.UserWithoutPassword.class, View.UserWithPassword.class})
     private String userType;
 
     /**
