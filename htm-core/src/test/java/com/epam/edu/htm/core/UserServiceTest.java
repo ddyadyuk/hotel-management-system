@@ -39,7 +39,7 @@ public class UserServiceTest {
 
     @Test
     public void testAddUser_userNotNull_success() {
-        User user = create();
+        User user = createTestUser();
 
         Mockito.when(userDao.addUser(user)).thenReturn(Optional.of(EXPECTED_ID));
         Optional<Long> result = userService.addUser(user);
@@ -49,14 +49,14 @@ public class UserServiceTest {
 
     @Test
     public void testAddUser_userNotNull_responseNotnull() {
-        Optional<Long> result = userService.addUser(create());
+        Optional<Long> result = userService.addUser(createTestUser());
 
         assertNotNull(result);
     }
 
     @Test
     public void testAddUser_userEquals_success(){
-        User user = create();
+        User user = createTestUser();
 
         Mockito.when(userDao.addUser(user)).thenReturn(Optional.of(EXPECTED_ID));
         Optional<Long> result = userService.addUser(user);
@@ -91,7 +91,7 @@ public class UserServiceTest {
         verifyZeroInteractions(userDao);
     }
 
-    private User create(){
+    private User createTestUser() {
         User user = new User();
         user.setPassword("abc");
         user.setContact(new Contact());
