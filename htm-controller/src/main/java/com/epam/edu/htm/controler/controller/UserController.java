@@ -7,9 +7,12 @@ import com.fasterxml.jackson.annotation.JsonView;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
 import java.util.Optional;
 
@@ -24,9 +27,10 @@ public class UserController {
     }
 
     @PostMapping("/")
+    @ResponseStatus(HttpStatus.CREATED)
     @JsonView(View.UserWithPassword.class)
-    public Optional<Long> addUser(@RequestBody User user) {
+    public @ResponseBody Long addUser(@RequestBody User user) {
         LOGGER.debug("addUser() method with user: {}", user);
-        return userService.addUser(user);
+        return userService.addUser(user).get();
     }
 }

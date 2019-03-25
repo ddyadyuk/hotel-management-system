@@ -23,11 +23,10 @@
         <maven-compiler-target.version>8</maven-compiler-target.version>
         <maven-compiler.version>3.8.0</maven-compiler.version>
         <java-doc.version>3.0.1</java-doc.version>
-        <spring.version>5.1.3.RELEASE</spring.version>
+        <spring.version>5.1.5.RELEASE</spring.version>
         <h2.version>1.4.198</h2.version>
         <surefire.version>2.22.0</surefire.version>
         <servlet-api.version>3.0.1</servlet-api.version>
-        <spring-mvc.version>5.1.5.RELEASE</spring-mvc.version>
         <failsafe.version>3.0.0-M3</failsafe.version>
         <logback.version>1.0.1</logback.version>
         <jackson.version>2.9.5</jackson.version>
@@ -111,7 +110,7 @@
             <dependency>
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-webmvc</artifactId>
-                <version>${spring-mvc.version}</version>
+                <version>${spring.version}</version>
             </dependency>
             <dependency>
                 <groupId>javax.servlet</groupId>
