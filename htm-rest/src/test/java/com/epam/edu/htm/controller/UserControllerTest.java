@@ -37,7 +37,6 @@ public class UserControllerTest {
 
     @Before
     public void setup() throws JsonProcessingException {
-
         MockitoAnnotations.initMocks(this);
         this.mockMvc = MockMvcBuilders.standaloneSetup(new UserController(userService)).build();
     }
