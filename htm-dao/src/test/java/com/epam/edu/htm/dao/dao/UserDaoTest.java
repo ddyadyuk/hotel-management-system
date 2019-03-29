@@ -26,11 +26,6 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.*;
 
 public class UserDaoTest {
-    private static final Long EXPECTED_ID = 1L;
-    private static String ADDUSER =
-            "insert into USER (password, contact, address, user_type)" +
-                    " values (:password, :contact_id , :address_id, :user_type)";
-
     @Mock
     private UserDao userDao;
     @Mock
@@ -63,7 +58,7 @@ public class UserDaoTest {
         });
        Optional<Long> result = jdbcUserDao.addUser(user);
 
-       assertEquals(Optional.of(EXPECTED_ID), result);
+       assertEquals(Optional.of(1L), result);
     }
 
     @Test

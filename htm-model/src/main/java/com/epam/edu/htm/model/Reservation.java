@@ -1,5 +1,8 @@
 package com.epam.edu.htm.model;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
+import javax.validation.constraints.NotNull;
 import java.sql.Date;
 
 /**
@@ -11,13 +14,30 @@ import java.sql.Date;
  * @version 1.0
  */
 public class Reservation {
-    private Long idReservation;
+    @NotNull
+    private Long reservationId;
+
+    @NotNull
     private String country;
+
+    @NotNull
     private String roomType;
+
+    @NotNull
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date startBooking;
+
+    @NotNull
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date endBooking;
+
+    @NotNull
     private Room roomId;
+
+    @NotNull
     private Long guestId;
+
+    @NotNull
     private Long hotelId;
 
     /**
@@ -25,17 +45,17 @@ public class Reservation {
      *
      * @return the reservation id
      */
-    public Long getIdReservation() {
-        return idReservation;
+    public Long getReservationId() {
+        return reservationId;
     }
 
     /**
      * Sets reservation id.
      *
-     * @param idReservation the reservation id
+     * @param reservationId the reservation id
      */
-    public void setIdReservation(Long idReservation) {
-        this.idReservation = idReservation;
+    public void setReservationId(Long reservationId) {
+        this.reservationId = reservationId;
     }
 
     /**
@@ -164,7 +184,7 @@ public class Reservation {
     @Override
     public String toString() {
         return "Reservation{"
-                + "idReservation=" + idReservation
+                + "reservationId=" + reservationId
                 + ", country='" + country + '\''
                 + ", roomType='" + roomType + '\''
                 + ", startBooking=" + startBooking

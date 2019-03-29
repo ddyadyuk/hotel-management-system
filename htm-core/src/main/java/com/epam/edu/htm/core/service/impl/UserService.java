@@ -22,7 +22,7 @@ public class UserService implements UserOperations {
 
     @Override
     public Boolean deleteUser(Long id) {
-        if (id == null || id < 0) {
+        if (id == null) {
             throw new IllegalArgumentException("There is incorrect id");
         }
         dao.deleteUser(id);
