@@ -17,7 +17,7 @@ import javax.validation.constraints.NotNull;
  */
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class User {
-    @NotNull
+
     @JsonView({View.UserWithoutPassword.class, View.UserWithPassword.class})
     private Long userId;
 
