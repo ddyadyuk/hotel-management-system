@@ -1,5 +1,8 @@
 package com.epam.edu.htm.model;
 
+import javax.validation.constraints.Max;
+import javax.validation.constraints.NotNull;
+
 /**
  * Address Model Object.
  *
@@ -9,12 +12,20 @@ package com.epam.edu.htm.model;
  * @version 1.0
  */
 public class Address {
+    @NotNull
     private Long addressId;
+
+    @NotNull
     private String firsAddress;
+
     private String secondAddress;
+
     private String thirdAddress;
+
     private String city;
+
     private String street;
+    @Max(value = 10)
     private String postalCode;
 
     /**

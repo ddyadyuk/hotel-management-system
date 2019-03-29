@@ -44,7 +44,7 @@ public class JdbcUserDao implements UserDao {
         MapSqlParameterSource mapSqlParameterSource = new MapSqlParameterSource();
 
         mapSqlParameterSource.addValue(USER_PASSWORD, user.getPassword())
-                .addValue(USER_CONTACT_ID, user.getContact().getIdContact())
+                .addValue(USER_CONTACT_ID, user.getContact().getContactId())
                 .addValue(USER_ADDRESS_ID, user.getAddress().getAddressId())
                 .addValue(USER_TYPE, user.getUserType());
 

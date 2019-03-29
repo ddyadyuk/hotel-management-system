@@ -21,21 +21,11 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 @ContextConfiguration(classes = DataBaseTestConfig.class)
 @Transactional
 public class UserDaoIT {
-    private static final Long USER_ID = 1L;
-    private static final String USER_PASSWORD = "123";
-    private static final Long CONTACT_ID = 1L;
-    private static final String PHONE = "123";
-    private static final String EMAIL = "ddyadyuk@gmail.com";
-    private static final Long ADDRESS_ID = 1L;
-    private static final String FIRST_ADDRESS = "634 Applegate Drive Hollis, NY 11423";
-    private static final String SECOND_ADDRESS = "7837 Cottage St. Emporia, KS 66801";
-    private static final String THIRD_ADDRESS = "1 College Drive Lorain, OH 44052";
-    private static final String CITY = "New York";
-    private static final String STREET = "St. Emporia";
-    private static final String POSTAL_CODE = "122333412";
-    private static final String USER_TYPE = "user";
-    private static final Contact USER_CONTACT = new Contact(CONTACT_ID, PHONE, EMAIL);
-    private static final Address USER_ADDRESS = new Address(ADDRESS_ID,FIRST_ADDRESS, CITY,STREET ,POSTAL_CODE );
+    private static final Contact USER_CONTACT = new Contact( 1L,
+            "123", "ddyadyuk@gmail.com" );
+    private static final Address USER_ADDRESS = new Address( 1L,
+            "634 Applegate Drive Hollis, NY 11423",
+            "New York", "St. Emporia", "122333412");
 
     @Autowired
     private UserDao userDao;
@@ -46,7 +36,7 @@ public class UserDaoIT {
 
         Optional<Long> result = userDao.addUser(user);
 
-        assertEquals(Optional.of(USER_ID), result);
+        assertEquals(Optional.of(1L), result);
     }
 
     @Test
@@ -57,6 +47,6 @@ public class UserDaoIT {
     }
 
     private User createTestUser(){
-        return new User(USER_ID,USER_PASSWORD, USER_CONTACT,USER_ADDRESS,USER_TYPE );
+        return new User(1L,"123", USER_CONTACT, USER_ADDRESS, "user");
     }
 }

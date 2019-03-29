@@ -4,6 +4,9 @@ import com.epam.edu.htm.model.json.View;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonView;
 
+import javax.validation.constraints.NotNull;
+
+
 /**
  * User Model Object.
  *
@@ -14,9 +17,11 @@ import com.fasterxml.jackson.annotation.JsonView;
  */
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class User {
+    @NotNull
     @JsonView({View.UserWithoutPassword.class, View.UserWithPassword.class})
     private Long userId;
 
+    @NotNull
     @JsonView(View.UserWithPassword.class)
     private String password;
 
@@ -26,6 +31,7 @@ public class User {
     @JsonView({View.UserWithoutPassword.class, View.UserWithPassword.class})
     private Address address;
 
+    @NotNull
     @JsonView({View.UserWithoutPassword.class, View.UserWithPassword.class})
     private String userType;
 

@@ -1,5 +1,9 @@
 package com.epam.edu.htm.model;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 /**
  * Contact Model Object.
  *
@@ -9,8 +13,13 @@ package com.epam.edu.htm.model;
  * @version 1.0
  */
 public class Contact {
-    private Long idContact;
+    @NotNull
+    private Long contactId;
+
+    @Size(min = 7, max = 15, message = "phone number cannot be lover that 7 and greater than 15")
     private String phone;
+
+    @Email(message = "Email should be valid")
     private String email;
 
     /**
@@ -21,7 +30,7 @@ public class Contact {
      * @param email     the email
      */
     public Contact(Long idContact, String phone, String email) {
-        this.idContact = idContact;
+        this.contactId = idContact;
         this.phone = phone;
         this.email = email;
     }
@@ -37,17 +46,17 @@ public class Contact {
      *
      * @return the contact id
      */
-    public Long getIdContact() {
-        return idContact;
+    public Long getContactId() {
+        return contactId;
     }
 
     /**
      * Sets contact id.
      *
-     * @param idContact the contact id
+     * @param contactId the contact id
      */
-    public void setIdContact(Long idContact) {
-        this.idContact = idContact;
+    public void setContactId(Long contactId) {
+        this.contactId = contactId;
     }
 
     /**
@@ -89,7 +98,7 @@ public class Contact {
     @Override
     public String toString() {
         return "Contact{"
-                + "idContact=" + idContact
+                + "contactId=" + contactId
                 + ", phone='" + phone + '\''
                 + ", email='" + email + '\''
                 + '}';

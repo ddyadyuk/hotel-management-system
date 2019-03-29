@@ -1,5 +1,7 @@
 package com.epam.edu.htm.model;
 
+import javax.validation.constraints.NotNull;
+
 /**
  * Hotel Model Object.
  *
@@ -9,9 +11,16 @@ package com.epam.edu.htm.model;
  * @version 1.0
  */
 public class Hotel {
-    private Long idHotel;
+    @NotNull
+    private Long hotelId;
+
+    @NotNull
     private Contact contact;
+
+    @NotNull
     private String hotelType;
+
+    @NotNull
     private Address address;
 
     /**
@@ -19,17 +28,17 @@ public class Hotel {
      *
      * @return the hotel id
      */
-    public Long getIdHotel() {
-        return idHotel;
+    public Long getHotelId() {
+        return hotelId;
     }
 
     /**
      * Sets hotel id.
      *
-     * @param idHotel the hotel id
+     * @param hotelId the hotel id
      */
-    public void setIdHotel(Long idHotel) {
-        this.idHotel = idHotel;
+    public void setHotelId(Long hotelId) {
+        this.hotelId = hotelId;
     }
 
     /**
@@ -87,7 +96,7 @@ public class Hotel {
     @Override
     public String toString() {
         return "Hotel{"
-                + "idHotel=" + idHotel
+                + "hotelId=" + hotelId
                 + ", contact=" + contact
                 + ", hotelType='" + hotelType + '\''
                 + ", address=" + address

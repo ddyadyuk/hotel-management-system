@@ -87,8 +87,8 @@ CREATE TABLE IF NOT EXISTS user_type (
 CREATE TABLE IF NOT EXISTS user (
                                       id_user INT8 NOT NULL AUTO_INCREMENT,
                                       password VARCHAR(45) NOT NULL,
-                                      contact INT8 NOT NULL ,
-                                      address INT8 NOT NULL,
+                                      contact INT8,
+                                      address INT8,
                                       user_type VARCHAR(45) NOT NULL,
                                       PRIMARY KEY (id_user),
                                       FOREIGN KEY (address)

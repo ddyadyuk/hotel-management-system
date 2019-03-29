@@ -1,5 +1,7 @@
 package com.epam.edu.htm.model;
 
+import javax.validation.constraints.NotNull;
+
 /**
  * Room Model Object.
  *
@@ -9,11 +11,22 @@ package com.epam.edu.htm.model;
  * @version 1.0
  */
 public class Room {
-    private Long idRoom;
+    @NotNull(message = "Room type cannot be null")
+    private Long roomId;
+
+    @NotNull(message = "Status cannot be null")
     private String status;
+
+    @NotNull(message = "Price per hour cannot be null")
     private Double prisePerHour;
+
+    @NotNull(message = "Hotel cannot be null")
     private Long hotel;
+
+    @NotNull(message = "The room capacity cannot be null")
     private Integer roomCapacity;
+
+    @NotNull(message = "The room type cannot be null")
     private String roomType;
 
     /**
@@ -21,17 +34,17 @@ public class Room {
      *
      * @return the room id
      */
-    public Long getIdRoom() {
-        return idRoom;
+    public Long getRoomId() {
+        return roomId;
     }
 
     /**
      * Sets room id.
      *
-     * @param idRoom the room id
+     * @param roomId the room id
      */
-    public void setIdRoom(Long idRoom) {
-        this.idRoom = idRoom;
+    public void setRoomId(Long roomId) {
+        this.roomId = roomId;
     }
 
     /**
@@ -125,7 +138,7 @@ public class Room {
     @Override
     public String toString() {
         return "Room{"
-                + "idRoom=" + idRoom
+                + "roomId=" + roomId
                 + ", status='" + status + '\''
                 + ", prisePerHour=" + prisePerHour
                 + ", hotel=" + hotel

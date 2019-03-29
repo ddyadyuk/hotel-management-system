@@ -1,5 +1,7 @@
 package com.epam.edu.htm.model;
 
+import javax.validation.constraints.NotNull;
+
 /**
  * Guest Model Object.
  *
@@ -9,25 +11,28 @@ package com.epam.edu.htm.model;
  * @version 1.0
  */
 public class Guest {
-    private Long idGuest;
-    private Long idUser;
+    @NotNull
+    private Long guestId;
+
+    @NotNull
+    private Long userId;
 
     /**
      * Gets guest id.
      *
      * @return the guest id
      */
-    public Long getIdGuest() {
-        return idGuest;
+    public Long getGuestId() {
+        return guestId;
     }
 
     /**
      * Sets guest id.
      *
-     * @param idGuest the guest id
+     * @param guestId the guest id
      */
-    public void setIdGuest(Long idGuest) {
-        this.idGuest = idGuest;
+    public void setGuestId(Long guestId) {
+        this.guestId = guestId;
     }
 
 
@@ -36,24 +41,24 @@ public class Guest {
      *
      * @return the user id
      */
-    public Long getIdUser() {
-        return idUser;
+    public Long getUserId() {
+        return userId;
     }
 
     /**
      * Sets user id.
      *
-     * @param idUser the user id
+     * @param userId the user id
      */
-    public void setIdUser(Long idUser) {
-        this.idUser = idUser;
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
     @Override
     public String toString() {
         return "Guest{"
-                + "idGuest=" + idGuest
-                + ", idUser=" + idUser
+                + "guestId=" + guestId
+                + ", userId=" + userId
                 + '}';
     }
 }

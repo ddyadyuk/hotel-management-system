@@ -21,7 +21,6 @@ import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.verifyZeroInteractions;
 
 public class UserServiceTest {
-    private static final Long EXPECTED_ID = 1L;
     @Mock
     private  UserDao userDao;
     @InjectMocks
@@ -41,7 +40,7 @@ public class UserServiceTest {
     public void testAddUser_userNotNull_success() {
         User user = createTestUser();
 
-        Mockito.when(userDao.addUser(user)).thenReturn(Optional.of(EXPECTED_ID));
+        Mockito.when(userDao.addUser(user)).thenReturn(Optional.of(1L));
         Optional<Long> result = userService.addUser(user);
 
         Mockito.verify(userDao,Mockito.times(1)).addUser(user);
@@ -58,7 +57,7 @@ public class UserServiceTest {
     public void testAddUser_userEquals_success(){
         User user = createTestUser();
 
-        Mockito.when(userDao.addUser(user)).thenReturn(Optional.of(EXPECTED_ID));
+        Mockito.when(userDao.addUser(user)).thenReturn(Optional.of(1L));
         Optional<Long> result = userService.addUser(user);
 
         assertEquals(Optional.of(1L),result);
