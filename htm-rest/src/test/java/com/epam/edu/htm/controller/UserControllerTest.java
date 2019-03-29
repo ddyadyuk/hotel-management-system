@@ -1,5 +1,7 @@
 package com.epam.edu.htm.controller;
 
+import com.epam.edu.htm.controler.controller.UserController;
+import com.epam.edu.htm.controler.errorhandler.CustomRestExceptionHandler;
 import com.epam.edu.htm.controller.config.UserControllerTestConfig;
 import com.epam.edu.htm.core.service.impl.UserService;
 import com.epam.edu.htm.model.Address;
@@ -9,15 +11,14 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.runner.RunWith;
+import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
@@ -41,18 +42,21 @@ public class UserControllerTest {
     private static final Long EXPECTED_ID = 1L;
 
     @Autowired
-    WebApplicationContext webApplicationContext;
+    private WebApplicationContext webApplicationContext;
 
     @Autowired
-    UserService userService;
+    private UserService userService;
+
+    @Autowired
+    private ObjectMapper objectMapper;
 
     private MockMvc mockMvc;
-    private ObjectMapper objectMapper;
+
 
     @Before
     public void setup() throws JsonProcessingException {
-        MockitoAnnotations.initMocks(this);
-        this.mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
+        this.mockMvc = MockMvcBuilders.standaloneSetup(new UserController(userService))
+                .setControllerAdvice(CustomRestExceptionHandler.class).build();
     }
 
     @Test
@@ -93,8 +97,6 @@ public class UserControllerTest {
     private User createTestUser() {
         User user = new User();
         user.setPassword("abc");
-        user.setContact(new Contact());
-        user.setAddress(new Address());
         user.setUserType("user");
         return user;
     }

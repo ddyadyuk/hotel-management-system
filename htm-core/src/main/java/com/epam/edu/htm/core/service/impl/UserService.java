@@ -15,7 +15,7 @@ public class UserService implements UserOperations {
 
     public Optional<Long> addUser(User user) {
         if (user == null) {
-            throw new IllegalArgumentException("There is no User");
+            throw new IllegalArgumentException("Parameter 'user' can't be null");
         }
         return dao.addUser(user);
     }
@@ -23,7 +23,7 @@ public class UserService implements UserOperations {
     @Override
     public Boolean deleteUser(Long id) {
         if (id == null) {
-            throw new IllegalArgumentException("There is incorrect id");
+            throw new IllegalArgumentException("Parameter 'id' can't be null");
         }
         dao.deleteUser(id);
         return true;

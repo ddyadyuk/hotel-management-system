@@ -77,7 +77,8 @@ public class CustomRestExceptionHandler extends ResponseEntityExceptionHandler {
      */
     @Override
     public ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
-                                                               HttpHeaders headers, HttpStatus status, WebRequest request) {
+                                                               HttpHeaders headers,
+                                                               HttpStatus status, WebRequest request) {
         ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST, ex.getLocalizedMessage());
         return handleExceptionInternal(ex, apiError, new HttpHeaders(),
                 HttpStatus.BAD_REQUEST, request);
