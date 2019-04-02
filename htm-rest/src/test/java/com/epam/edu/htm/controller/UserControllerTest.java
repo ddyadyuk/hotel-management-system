@@ -4,16 +4,12 @@ import com.epam.edu.htm.controler.controller.UserController;
 import com.epam.edu.htm.controler.errorhandler.CustomRestExceptionHandler;
 import com.epam.edu.htm.controller.config.UserControllerTestConfig;
 import com.epam.edu.htm.core.service.impl.UserService;
-import com.epam.edu.htm.model.Address;
-import com.epam.edu.htm.model.Contact;
 import com.epam.edu.htm.model.User;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,9 +18,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.web.context.WebApplicationContext;
 
 import java.util.Optional;
 
@@ -39,11 +33,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class UserControllerTest {
     private static final Logger LOGGER = LoggerFactory.getLogger(UserControllerTest.class);
 
-    private static final Long EXPECTED_ID = 1L;
-
-    @Autowired
-    private WebApplicationContext webApplicationContext;
-
     @Autowired
     private UserService userService;
 
@@ -52,7 +41,6 @@ public class UserControllerTest {
 
     private MockMvc mockMvc;
 
-
     @Before
     public void setup() throws JsonProcessingException {
         this.mockMvc = MockMvcBuilders.standaloneSetup(new UserController(userService))
@@ -60,21 +48,108 @@ public class UserControllerTest {
     }
 
     @Test
-    public void testAddUser_responseIsOK_success() throws Exception {
-        User user = createTestUser();
+    public void testAddUser_BodyIsAbsent_BadRequest() throws Exception {
+        this.mockMvc.perform(post("/user")
+                .accept(MediaType.APPLICATION_JSON)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(""))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    public void testAddUser_UserPasswordIsNull_BadRequest() throws Exception {
+
+        User user = new User();
+        user.setUserType("user");
+
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        String content = objectMapper.writeValueAsString(user);
+
+        this.mockMvc.perform(post("/user")
+                .accept(MediaType.APPLICATION_JSON_UTF8)
+                .contentType(MediaType.APPLICATION_JSON_UTF8)
+                .content(content)
+                .content(""))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    public void testAddUser_UserUserTypeIsNull_BadRequest() throws Exception {
+
+        User user = new User();
+        user.setPassword("password");
+
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        String content = objectMapper.writeValueAsString(user);
+
+        this.mockMvc.perform(post("/user")
+                .accept(MediaType.APPLICATION_JSON_UTF8)
+                .contentType(MediaType.APPLICATION_JSON_UTF8)
+                .content(content)
+                .content(""))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    public void testAddUser_MediaTypeIncorrect_NotValid() throws Exception {
+        User user = new User();
+        user.setPassword("abc");
+        user.setUserType("user");
+
         objectMapper = new ObjectMapper();
         String jsonRequest = objectMapper.writeValueAsString(user);
 
-        when(userService.addUser(any(User.class))).thenReturn(Optional.of(EXPECTED_ID));
+        when(userService.addUser(any(User.class))).thenReturn(Optional.of(1L));
+
+        this.mockMvc.perform(post("/user")
+                .accept(MediaType.TEXT_HTML)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(jsonRequest))
+                .andDo(print())
+                .andExpect(status().isNotAcceptable());
+    }
+
+    @Test
+    public void testAddUser_UserIsCorrect_IsOK() throws Exception {
+
+        User user = new User();
+        user.setPassword("abc");
+        user.setUserType("user");
+
+        objectMapper = new ObjectMapper();
+        String jsonRequest = objectMapper.writeValueAsString(user);
+
+        when(userService.addUser(any(User.class))).thenReturn(Optional.of(1L));
+
+        this.mockMvc.perform(post("/user")
+                .accept(MediaType.APPLICATION_JSON)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(jsonRequest))
+                .andDo(print())
+                .andExpect(status().isCreated());
+
+        verify(userService, times(1)).addUser(any(User.class));
+    }
+    @Test
+    public void testAddUser_UrlIsNotAccept_isNotFound() throws Exception {
+
+        User user = new User();
+        user.setPassword("abc");
+        user.setUserType("user");
+
+        objectMapper = new ObjectMapper();
+        String jsonRequest = objectMapper.writeValueAsString(user);
+
+        when(userService.addUser(any(User.class))).thenReturn(Optional.of(1L));
+
         this.mockMvc.perform(post("/")
                 .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(jsonRequest))
                 .andDo(print())
-                .andExpect(status().isCreated())
-                .andExpect(MockMvcResultMatchers.content().string(String.valueOf(EXPECTED_ID)));
-
-        verify(userService, times(1)).addUser(any(User.class));
+                .andExpect(status().isNotFound());
     }
 
     @Test
@@ -84,7 +159,7 @@ public class UserControllerTest {
         String jsonRequest = objectMapper.writeValueAsString(user);
 
         when(userService.addUser(any(User.class))).thenReturn(Optional.empty());
-        this.mockMvc.perform(post("/")
+        this.mockMvc.perform(post("/user")
                 .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(jsonRequest))
@@ -92,13 +167,6 @@ public class UserControllerTest {
                 .andExpect(status().isBadRequest());
 
         verifyZeroInteractions(userService);
-    }
-
-    private User createTestUser() {
-        User user = new User();
-        user.setPassword("abc");
-        user.setUserType("user");
-        return user;
     }
 
 }
