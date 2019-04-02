@@ -1,40 +1,31 @@
-package com.epam.edu.htm.model;
+package com.epam.edu.htm.controler.dto;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
+import com.epam.edu.htm.model.Address;
+import com.epam.edu.htm.model.Contact;
 
+import javax.validation.constraints.NotNull;
 
-/**
- * User Model Object.
- *
- * <P>Various user attributes</P>
- *
- * @author Dmitry Dyadyuk
- * @version 1.0
- */
-@JsonInclude(JsonInclude.Include.NON_NULL)
-public class User {
+public class UserDto {
 
-    private Long userId;
-
+    @NotNull
     private String password;
 
     private Contact contact;
 
     private Address address;
 
+    @NotNull
     private String userType;
 
     /**
      * Instantiates a new User.
      *
-     * @param userId   the user id
      * @param password the password
      * @param contact  the contact
      * @param address  the address
      * @param userType the user type
      */
-    public User(Long userId, String password, Contact contact, Address address, String userType) {
-        this.userId = userId;
+    public UserDto(String password, Contact contact, Address address, String userType) {
         this.password = password;
         this.contact = contact;
         this.address = address;
@@ -44,25 +35,7 @@ public class User {
     /**
      * Instantiates a new User.
      */
-    public User() {
-    }
-
-    /**
-     * Gets user id.
-     *
-     * @return the user id
-     */
-    public Long getUserId() {
-        return userId;
-    }
-
-    /**
-     * Sets user id.
-     *
-     * @param userId the user id
-     */
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public UserDto() {
     }
 
     /**
@@ -135,17 +108,5 @@ public class User {
      */
     public void setUserType(String userType) {
         this.userType = userType;
-    }
-
-    @Override
-    public String toString() {
-        final StringBuilder sb = new StringBuilder("User{");
-        sb.append("userId=").append(userId);
-        sb.append(", password='").append(password).append('\'');
-        sb.append(", contact=").append(contact);
-        sb.append(", address=").append(address);
-        sb.append(", userType='").append(userType).append('\'');
-        sb.append('}');
-        return sb.toString();
     }
 }
