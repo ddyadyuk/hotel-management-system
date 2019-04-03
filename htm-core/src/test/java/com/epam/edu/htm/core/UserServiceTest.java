@@ -38,17 +38,23 @@ public class UserServiceTest {
 
     @Test
     public void testAddUser_userNotNull_success() {
+
         User user = createTestUser();
+        Optional<User> userOpt = Optional.of(user);
 
-        Mockito.when(userDao.addUser(user)).thenReturn(Optional.of(1L));
-        Optional<Long> result = userService.addUser(user);
+        Mockito.when(userDao.addUser(userOpt)).thenReturn(1L);
+        Long result = userService.addUser(userOpt);
 
-        Mockito.verify(userDao,Mockito.times(1)).addUser(user);
+        Mockito.verify(userDao,Mockito.times(1)).addUser(userOpt);
     }
 
     @Test
     public void testAddUser_userNotNull_responseNotnull() {
-        Optional<Long> result = userService.addUser(createTestUser());
+
+        User user = createTestUser();
+        Optional<User> userOpt = Optional.of(user);
+
+        Long result = userService.addUser(userOpt);
 
         assertNotNull(result);
     }
@@ -56,11 +62,12 @@ public class UserServiceTest {
     @Test
     public void testAddUser_userEquals_success(){
         User user = createTestUser();
+        Optional<User> userOpt = Optional.of(user);
 
-        Mockito.when(userDao.addUser(user)).thenReturn(Optional.of(1L));
-        Optional<Long> result = userService.addUser(user);
+        Mockito.when(userDao.addUser(userOpt)).thenReturn(1L);
+        Long result = userService.addUser(userOpt);
 
-        assertEquals(Optional.of(1L),result);
+        assertEquals(result, (Long) 1L);
     }
 
     @Test

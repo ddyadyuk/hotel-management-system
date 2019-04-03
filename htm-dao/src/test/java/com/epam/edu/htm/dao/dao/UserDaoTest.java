@@ -46,6 +46,7 @@ public class UserDaoTest {
     @Test
     public void addUser_UserNotNull_success(){
         User user = createTestUser();
+        Optional<User> optionalUser = Optional.of(user);
 
         when(jdbcTemplate.update(any(), Mockito.any(MapSqlParameterSource.class), Mockito.any(GeneratedKeyHolder.class))).thenAnswer(new Answer() {
             public Object answer(InvocationOnMock invocation) {
@@ -56,14 +57,15 @@ public class UserDaoTest {
                 return 1;
             }
         });
-       Optional<Long> result = jdbcUserDao.addUser(user);
+       Long result = jdbcUserDao.addUser(optionalUser);
 
-       assertEquals(Optional.of(1L), result);
+       assertEquals((Long) 1L, result);
     }
 
     @Test
     public void addUser_IsUserNotNull_success(){
         User user = createTestUser();
+        Optional<User> optionalLong = Optional.of(user);
 
         when(jdbcTemplate.update(any(), Mockito.any(MapSqlParameterSource.class), Mockito.any(GeneratedKeyHolder.class))).thenAnswer(new Answer() {
             public Object answer(InvocationOnMock invocation) {
@@ -74,7 +76,7 @@ public class UserDaoTest {
                 return 1;
             }
         });
-        Optional<Long> result = jdbcUserDao.addUser(user);
+        Long result = jdbcUserDao.addUser(optionalLong);
 
         assertNotNull(result);
     }

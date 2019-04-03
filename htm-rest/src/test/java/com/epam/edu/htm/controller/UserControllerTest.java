@@ -7,15 +7,12 @@ import com.epam.edu.htm.core.service.impl.UserService;
 import com.epam.edu.htm.model.User;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.util.JSONPObject;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.core.io.Resource;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -23,9 +20,6 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-
-import java.io.InputStream;
-import java.util.Optional;
 
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -48,7 +42,7 @@ public class UserControllerTest {
 
 
     @Before
-    public void setup() throws JsonProcessingException {
+    public void setup() {
         this.mockMvc = MockMvcBuilders.standaloneSetup(new UserController(userService))
                 .setControllerAdvice(CustomRestExceptionHandler.class).build();
     }
@@ -110,7 +104,7 @@ public class UserControllerTest {
         objectMapper = new ObjectMapper();
         String content = objectMapper.writeValueAsString(user);
 
-        when(userService.addUser(any(User.class))).thenReturn(Optional.of(1L));
+        when(userService.addUser(any())).thenReturn(1L);
 
         this.mockMvc.perform(post("/user")
                 .accept(MediaType.TEXT_HTML)
@@ -129,7 +123,7 @@ public class UserControllerTest {
         objectMapper = new ObjectMapper();
         String content = objectMapper.writeValueAsString(user);
 
-        when(userService.addUser(any(User.class))).thenReturn(Optional.of(1L));
+        when(userService.addUser(any())).thenReturn(1L);
 
         this.mockMvc.perform(post("/user")
                 .accept(MediaType.APPLICATION_JSON)
@@ -139,7 +133,7 @@ public class UserControllerTest {
                 .andExpect(status().isCreated())
                 .andExpect(MockMvcResultMatchers.content().string(String.valueOf((Long) 1L)));
 
-        verify(userService, times(1)).addUser(any(User.class));
+        verify(userService, times(1)).addUser(any());
     }
 
     @Test
@@ -148,7 +142,7 @@ public class UserControllerTest {
         objectMapper = new ObjectMapper();
         String content = objectMapper.writeValueAsString(user);
 
-        when(userService.addUser(any(User.class))).thenReturn(Optional.empty());
+        when(userService.addUser(any())).thenReturn(null);
 
         this.mockMvc.perform(post("/user")
                 .accept(MediaType.APPLICATION_JSON)
