@@ -20,7 +20,7 @@ public interface UserOperations {
      * @param user the user
      * @return user id
      */
-    Optional<Long> addUser(User user);
+    Long addUser(Optional<User> user);
 
     /**
      * @param id the user id

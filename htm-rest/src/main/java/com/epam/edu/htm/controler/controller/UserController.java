@@ -13,7 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.NoSuchElementException;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/user")
@@ -28,11 +28,12 @@ public class UserController {
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
-    public @ResponseBody Long addUser(@RequestBody @Valid UserDto userDto) {
+    public @ResponseBody
+    Long addUser(@RequestBody @Valid UserDto userDto) {
         LOGGER.debug("addUser() method with user: {}", userDto);
         User user = new User();
         BeanUtils.copyProperties(userDto, user);
         LOGGER.debug("User with copied properties: {}", user);
-        return userService.addUser(user).orElseThrow(() -> new NoSuchElementException("No such element exception"));
+        return userService.addUser(Optional.of(user));
     }
 }

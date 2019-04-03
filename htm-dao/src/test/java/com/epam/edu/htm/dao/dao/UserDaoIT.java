@@ -33,17 +33,16 @@ public class UserDaoIT {
     @Test
     public void addUser_NotNull_success() {
         User user = createTestUser();
+        Optional<User> optionalUser = Optional.of(user);
 
-        Optional<Long> result = userDao.addUser(user);
+        Long result = userDao.addUser(optionalUser);
 
-        assertEquals(Optional.of(1L), result);
+        assertEquals((Long) 1L, result);
     }
 
     @Test
     public void addUser_isNull_fail() {
-        User user = null;
-
-        assertThrows(IllegalArgumentException.class, () -> userDao.addUser(user));
+        assertThrows(IllegalArgumentException.class, () -> userDao.addUser(Optional.empty()));
     }
 
     private User createTestUser(){

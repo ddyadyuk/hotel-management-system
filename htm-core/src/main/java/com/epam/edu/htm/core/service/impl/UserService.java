@@ -13,8 +13,8 @@ public class UserService implements UserOperations {
         this.dao = dao;
     }
 
-        public Optional<Long> addUser(User user) {
-        if (user == null) {
+        public Long addUser(Optional<User> user) {
+        if (!user.isPresent()) {
             throw new IllegalArgumentException("Parameter 'user' can't be null");
         }
         return dao.addUser(user);
