@@ -11,22 +11,16 @@ import javax.validation.constraints.NotNull;
  * @version 1.0
  */
 public class Room {
-    @NotNull(message = "Room type cannot be null")
     private Long roomId;
 
-    @NotNull(message = "Status cannot be null")
     private String status;
 
-    @NotNull(message = "Price per hour cannot be null")
     private Double prisePerHour;
 
-    @NotNull(message = "Hotel cannot be null")
     private Long hotel;
 
-    @NotNull(message = "The room capacity cannot be null")
     private Integer roomCapacity;
 
-    @NotNull(message = "The room type cannot be null")
     private String roomType;
 
     /**

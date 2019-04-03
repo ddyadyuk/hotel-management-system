@@ -13,13 +13,10 @@ import javax.validation.constraints.Size;
  * @version 1.0
  */
 public class Contact {
-    @NotNull
     private Long contactId;
 
-    @Size(min = 7, max = 15, message = "phone number cannot be lover that 7 and greater than 15")
     private String phone;
 
-    @Email(message = "Email should be valid")
     private String email;
 
     /**

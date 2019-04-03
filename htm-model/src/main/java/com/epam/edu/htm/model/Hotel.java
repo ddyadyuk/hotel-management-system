@@ -11,16 +11,12 @@ import javax.validation.constraints.NotNull;
  * @version 1.0
  */
 public class Hotel {
-    @NotNull
     private Long hotelId;
 
-    @NotNull
     private Contact contact;
 
-    @NotNull
     private String hotelType;
 
-    @NotNull
     private Address address;
 
     /**
