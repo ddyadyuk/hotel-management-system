@@ -20,7 +20,6 @@ import java.util.NoSuchElementException;
 @ControllerAdvice
 public class CustomRestExceptionHandler extends ResponseEntityExceptionHandler {
 
-
     /**
      * Handle illegal exception response entity.
      */
@@ -38,16 +37,6 @@ public class CustomRestExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(value = {DataAccessException.class})
     public ResponseEntity<Object> handleDataAccessException(DataAccessException ex,
                                                             WebRequest request) {
-        ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST, ex.getLocalizedMessage());
-        return handleExceptionInternal(ex, apiError, new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
-    }
-
-    /**
-     * Handle illegal state exception response entity.
-     */
-    @ExceptionHandler(value = {IllegalStateException.class})
-    public ResponseEntity<Object> handleIllegalStateException(IllegalStateException ex,
-                                                              WebRequest request) {
         ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST, ex.getLocalizedMessage());
         return handleExceptionInternal(ex, apiError, new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
     }
@@ -73,7 +62,7 @@ public class CustomRestExceptionHandler extends ResponseEntityExceptionHandler {
     }
 
     /**
-     * Handle mothod argument not valid exception response entity.
+     * Handle method argument not valid exception response entity.
      */
     @Override
     public ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
@@ -84,6 +73,9 @@ public class CustomRestExceptionHandler extends ResponseEntityExceptionHandler {
                 HttpStatus.BAD_REQUEST, request);
     }
 
+    /**
+     * Handle no such element exception exception response entity.
+     */
     @ExceptionHandler(value = {NoSuchElementException.class})
     public ResponseEntity<Object> handleNoSuchElementException(NoSuchElementException ex,
                                                                WebRequest request) {

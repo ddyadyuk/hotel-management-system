@@ -7,19 +7,24 @@ import com.epam.edu.htm.core.service.impl.UserService;
 import com.epam.edu.htm.model.User;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.util.JSONPObject;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import java.io.InputStream;
 import java.util.Optional;
 
 import static org.mockito.Mockito.*;
@@ -41,6 +46,7 @@ public class UserControllerTest {
 
     private MockMvc mockMvc;
 
+
     @Before
     public void setup() throws JsonProcessingException {
         this.mockMvc = MockMvcBuilders.standaloneSetup(new UserController(userService))
@@ -57,20 +63,27 @@ public class UserControllerTest {
     }
 
     @Test
+    public void testAddUser_UrlIsNotValid_NotFound() throws Exception {
+
+        this.mockMvc.perform(post("/")
+                .accept(MediaType.APPLICATION_JSON_UTF8)
+                .contentType(MediaType.APPLICATION_JSON_UTF8)
+                .content(""))
+                .andExpect(status().isNotFound());
+    }
+
+    @Test
     public void testAddUser_UserPasswordIsNull_BadRequest() throws Exception {
 
         User user = new User();
         user.setUserType("user");
-
         ObjectMapper objectMapper = new ObjectMapper();
-
         String content = objectMapper.writeValueAsString(user);
 
         this.mockMvc.perform(post("/user")
                 .accept(MediaType.APPLICATION_JSON_UTF8)
                 .contentType(MediaType.APPLICATION_JSON_UTF8)
-                .content(content)
-                .content(""))
+                .content(content))
                 .andExpect(status().isBadRequest());
     }
 
@@ -79,34 +92,30 @@ public class UserControllerTest {
 
         User user = new User();
         user.setPassword("password");
-
-        ObjectMapper objectMapper = new ObjectMapper();
-
+        objectMapper = new ObjectMapper();
         String content = objectMapper.writeValueAsString(user);
 
         this.mockMvc.perform(post("/user")
                 .accept(MediaType.APPLICATION_JSON_UTF8)
                 .contentType(MediaType.APPLICATION_JSON_UTF8)
-                .content(content)
-                .content(""))
+                .content(content))
                 .andExpect(status().isBadRequest());
     }
 
     @Test
     public void testAddUser_MediaTypeIncorrect_NotValid() throws Exception {
-        User user = new User();
-        user.setPassword("abc");
-        user.setUserType("user");
 
+        User user = new User();
+        user.setPassword("password");
         objectMapper = new ObjectMapper();
-        String jsonRequest = objectMapper.writeValueAsString(user);
+        String content = objectMapper.writeValueAsString(user);
 
         when(userService.addUser(any(User.class))).thenReturn(Optional.of(1L));
 
         this.mockMvc.perform(post("/user")
                 .accept(MediaType.TEXT_HTML)
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(jsonRequest))
+                .content(content))
                 .andDo(print())
                 .andExpect(status().isNotAcceptable());
     }
@@ -117,52 +126,34 @@ public class UserControllerTest {
         User user = new User();
         user.setPassword("abc");
         user.setUserType("user");
-
         objectMapper = new ObjectMapper();
-        String jsonRequest = objectMapper.writeValueAsString(user);
+        String content = objectMapper.writeValueAsString(user);
 
         when(userService.addUser(any(User.class))).thenReturn(Optional.of(1L));
 
         this.mockMvc.perform(post("/user")
                 .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(jsonRequest))
+                .content(content))
                 .andDo(print())
-                .andExpect(status().isCreated());
+                .andExpect(status().isCreated())
+                .andExpect(MockMvcResultMatchers.content().string(String.valueOf((Long) 1L)));
 
         verify(userService, times(1)).addUser(any(User.class));
-    }
-    @Test
-    public void testAddUser_UrlIsNotAccept_isNotFound() throws Exception {
-
-        User user = new User();
-        user.setPassword("abc");
-        user.setUserType("user");
-
-        objectMapper = new ObjectMapper();
-        String jsonRequest = objectMapper.writeValueAsString(user);
-
-        when(userService.addUser(any(User.class))).thenReturn(Optional.of(1L));
-
-        this.mockMvc.perform(post("/")
-                .accept(MediaType.APPLICATION_JSON)
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(jsonRequest))
-                .andDo(print())
-                .andExpect(status().isNotFound());
     }
 
     @Test
     public void testAddUser_responseIsNotOk_fail() throws Exception {
         User user = null;
         objectMapper = new ObjectMapper();
-        String jsonRequest = objectMapper.writeValueAsString(user);
+        String content = objectMapper.writeValueAsString(user);
 
         when(userService.addUser(any(User.class))).thenReturn(Optional.empty());
+
         this.mockMvc.perform(post("/user")
                 .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(jsonRequest))
+                .content(content))
                 .andDo(print())
                 .andExpect(status().isBadRequest());
 

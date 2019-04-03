@@ -11,10 +11,8 @@ import javax.validation.constraints.NotNull;
  * @version 1.0
  */
 public class Guest {
-    @NotNull
     private Long guestId;
 
-    @NotNull
     private Long userId;
 
     /**

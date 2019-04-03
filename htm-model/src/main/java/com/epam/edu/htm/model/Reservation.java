@@ -14,30 +14,20 @@ import java.sql.Date;
  * @version 1.0
  */
 public class Reservation {
-    @NotNull
     private Long reservationId;
 
-    @NotNull
     private String country;
 
-    @NotNull
     private String roomType;
 
-    @NotNull
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date startBooking;
 
-    @NotNull
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date endBooking;
 
-    @NotNull
     private Room roomId;
 
-    @NotNull
     private Long guestId;
 
-    @NotNull
     private Long hotelId;
 
     /**
