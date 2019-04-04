@@ -1,8 +1,5 @@
 package com.epam.edu.htm.model;
 
-import org.springframework.format.annotation.DateTimeFormat;
-
-import javax.validation.constraints.NotNull;
 import java.sql.Date;
 
 /**
@@ -20,9 +17,9 @@ public class Reservation {
 
     private String roomType;
 
-    private Date startBooking;
+    private String startBooking;
 
-    private Date endBooking;
+    private String endBooking;
 
     private Room roomId;
 
@@ -89,7 +86,7 @@ public class Reservation {
      *
      * @return the start of the booking
      */
-    public Date getStartBooking() {
+    public String getStartBooking() {
         return startBooking;
     }
 
@@ -98,7 +95,7 @@ public class Reservation {
      *
      * @param startBooking the start of the booking
      */
-    public void setStartBooking(Date startBooking) {
+    public void setStartBooking(String startBooking) {
         this.startBooking = startBooking;
     }
 
@@ -106,7 +103,7 @@ public class Reservation {
      * Gets end of the booking.
      * @return the end of the booking
      */
-    public Date getEndBooking() {
+    public String getEndBooking() {
         return endBooking;
     }
 
@@ -115,7 +112,7 @@ public class Reservation {
      *
      * @param endBooking the end of the booking
      */
-    public void setEndBooking(Date endBooking) {
+    public void setEndBooking(String endBooking) {
         this.endBooking = endBooking;
     }
 

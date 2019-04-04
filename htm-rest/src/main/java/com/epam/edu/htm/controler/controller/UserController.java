@@ -34,6 +34,6 @@ public class UserController {
         User user = new User();
         BeanUtils.copyProperties(userDto, user);
         LOGGER.debug("User with copied properties: {}", user);
-        return userService.addUser(Optional.of(user));
+        return userService.addUser(user);
     }
 }
