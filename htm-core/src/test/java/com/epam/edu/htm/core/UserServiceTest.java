@@ -12,9 +12,8 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
-import java.util.Optional;
-
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
@@ -22,11 +21,11 @@ import static org.mockito.Mockito.verifyZeroInteractions;
 
 public class UserServiceTest {
     @Mock
-    private  UserDao userDao;
+    private UserDao userDao;
     @InjectMocks
     private UserService userService;
 
-    public UserServiceTest(){
+    public UserServiceTest() {
         MockitoAnnotations.initMocks(this);
     }
 
@@ -40,42 +39,38 @@ public class UserServiceTest {
     public void testAddUser_userNotNull_success() {
 
         User user = createTestUser();
-        Optional<User> userOpt = Optional.of(user);
 
-        Mockito.when(userDao.addUser(userOpt)).thenReturn(1L);
-        Long result = userService.addUser(userOpt);
+        Mockito.when(userDao.addUser(user)).thenReturn(1L);
+        Long result = userService.addUser(user);
 
-        Mockito.verify(userDao,Mockito.times(1)).addUser(userOpt);
+        Mockito.verify(userDao, Mockito.times(1)).addUser(user);
     }
 
     @Test
     public void testAddUser_userNotNull_responseNotnull() {
 
         User user = createTestUser();
-        Optional<User> userOpt = Optional.of(user);
 
-        Long result = userService.addUser(userOpt);
+        Long result = userService.addUser(user);
 
         assertNotNull(result);
     }
 
     @Test
-    public void testAddUser_userEquals_success(){
+    public void testAddUser_userEquals_success() {
         User user = createTestUser();
-        Optional<User> userOpt = Optional.of(user);
 
-        Mockito.when(userDao.addUser(userOpt)).thenReturn(1L);
-        Long result = userService.addUser(userOpt);
+        Mockito.when(userDao.addUser(user)).thenReturn(1L);
+        Long result = userService.addUser(user);
 
         assertEquals(result, (Long) 1L);
     }
 
     @Test
-    public void testAddUser_userNull_fail(){
+    public void testAddUser_userNull_fail() {
         Mockito.when(userDao.addUser(null)).thenThrow(IllegalArgumentException.class);
 
-        assertThrows(IllegalArgumentException.class, () ->
-                userService.addUser(null));
+        assertThrows(IllegalArgumentException.class, () -> userService.addUser(null));
         verifyZeroInteractions(userDao);
     }
 
@@ -92,8 +87,7 @@ public class UserServiceTest {
     public void testDeleteUser_userIdNull_fail() {
         Mockito.when(userDao.deleteUser(null)).thenThrow(IllegalArgumentException.class);
 
-        assertThrows(IllegalArgumentException.class, () ->
-                userService.deleteUser(null));
+        assertThrows(IllegalArgumentException.class, () -> userService.deleteUser(null));
         verifyZeroInteractions(userDao);
     }
 
@@ -103,6 +97,6 @@ public class UserServiceTest {
         user.setContact(new Contact());
         user.setAddress(new Address());
         user.setUserType("user");
-    return user;
+        return user;
     }
 }
