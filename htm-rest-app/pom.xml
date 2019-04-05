@@ -7,40 +7,48 @@
         <groupId>com.hotel-management-system.app</groupId>
         <version>1.0-SNAPSHOT</version>
     </parent>
+    <packaging>war</packaging>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>htm-dao</artifactId>
+    <artifactId>htm-rest-app</artifactId>
+
 
     <dependencies>
         <dependency>
             <groupId>com.hotel-management-system.app</groupId>
-            <artifactId>htm-core</artifactId>
+            <artifactId>htm-dao</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-jdbc</artifactId>
+            <groupId>com.hotel-management-system.app</groupId>
+            <artifactId>htm-rest</artifactId>
+            <version>${project.version}</version>
         </dependency>
+        <!--Spring-->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.h2database</groupId>
-            <artifactId>h2</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.postgresql</groupId>
-            <artifactId>postgresql</artifactId>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-core</artifactId>
         </dependency>
     </dependencies>
 
     <build>
+        <finalName>rest</finalName>
         <plugins>
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-failsafe-plugin</artifactId>
+                <groupId>org.apache.tomcat.maven</groupId>
+                <artifactId>tomcat7-maven-plugin</artifactId>
+                <version>2.2</version>
+                <configuration>
+                    <contextFile>/src/main/webapp/WEB-INF/web.xml</contextFile>
+                    <path>/</path>
+                    <port>8060</port>
+                </configuration>
             </plugin>
         </plugins>
     </build>
+
 </project>
