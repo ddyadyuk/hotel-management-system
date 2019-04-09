@@ -45,6 +45,19 @@ public class User {
     }
 
     /**
+     * Instantiates a new User.
+     *
+     * @param userId   the user id
+     * @param password the password
+     * @param userType the user type
+     */
+    public User(Long userId, String password, String userType) {
+        this.userId = userId;
+        this.password = password;
+        this.userType = userType;
+    }
+
+    /**
      * Gets user id.
      *
      * @return the user id

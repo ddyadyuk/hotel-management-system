@@ -45,13 +45,15 @@ public class JdbcUserDao implements UserDao {
         MapSqlParameterSource mapSqlParameterSource = new MapSqlParameterSource();
 
         mapSqlParameterSource.addValue(USER_PASSWORD, user.getPassword())
-                .addValue(USER_CONTACT_ID, user.getContact().getContactId())
-                .addValue(USER_ADDRESS_ID, user.getAddress().getAddressId())
                 .addValue(USER_TYPE, user.getUserType());
+//                .addValue(USER_CONTACT_ID, user.getContact().getContactId())
+//                .addValue(USER_ADDRESS_ID, user.getAddress().getAddressId())
+
 
         int rowNumber = 0;
         try {
-            rowNumber = namedParameterJdbcTemplate.update(insert, mapSqlParameterSource, keyHolder);
+            rowNumber = namedParameterJdbcTemplate.update(insert, mapSqlParameterSource, keyHolder,
+                    new String[] { "id_user"});
         } catch (DataAccessException e) {
             LOGGER.warn("Could not save user.", e);
         }
