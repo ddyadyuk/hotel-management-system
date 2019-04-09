@@ -21,11 +21,11 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 @ContextConfiguration(classes = DataBaseTestConfig.class)
 @Transactional
 public class UserDaoIT {
-    private static final Contact USER_CONTACT = new Contact( 1L,
-            "123", "ddyadyuk@gmail.com" );
-    private static final Address USER_ADDRESS = new Address( 1L,
-            "634 Applegate Drive Hollis, NY 11423",
-            "New York", "St. Emporia", "122333412");
+//    private static final Contact USER_CONTACT = new Contact( 1L,
+//            "123", "ddyadyuk@gmail.com" );
+//    private static final Address USER_ADDRESS = new Address( 1L,
+//            "634 Applegate Drive Hollis, NY 11423",
+//            "New York", "St. Emporia", "122333412");
 
     @Autowired
     private UserDao userDao;
@@ -45,6 +45,6 @@ public class UserDaoIT {
     }
 
     private User createTestUser(){
-        return new User(1L,"123", USER_CONTACT, USER_ADDRESS, "user");
+        return new User(1L,"123","user");
     }
 }
