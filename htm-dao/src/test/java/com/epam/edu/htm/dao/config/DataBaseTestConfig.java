@@ -25,6 +25,7 @@ public class DataBaseTestConfig {
 
         return builder
                 .setType(EmbeddedDatabaseType.H2)
+                .setName("jdbc:h2:~/test;MODE=PostgreSQL")
                 .addScript("createDatabase.sql")
                 .addScript("initialization.sql")
                 .build();
