@@ -22,10 +22,6 @@
            <artifactId>spring-webmvc</artifactId>
        </dependency>
        <dependency>
-           <groupId>org.springframework</groupId>
-           <artifactId>spring-tx</artifactId>
-       </dependency>
-       <dependency>
            <groupId>javax.servlet</groupId>
            <artifactId>javax.servlet-api</artifactId>
        </dependency>
@@ -40,6 +36,10 @@
        <dependency>
            <groupId>org.glassfish</groupId>
            <artifactId>javax.el</artifactId>
+       </dependency>
+       <dependency>
+           <groupId>org.springframework</groupId>
+           <artifactId>spring-tx</artifactId>
        </dependency>
        <dependency>
            <groupId>com.fasterxml.jackson.core</groupId>

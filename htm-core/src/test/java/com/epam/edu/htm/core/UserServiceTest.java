@@ -12,6 +12,8 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
+import java.util.Optional;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -40,7 +42,7 @@ public class UserServiceTest {
 
         User user = createTestUser();
 
-        Mockito.when(userDao.addUser(user)).thenReturn(1L);
+        Mockito.when(userDao.addUser(user)).thenReturn(Optional.of(1L));
         Long result = userService.addUser(user);
 
         Mockito.verify(userDao, Mockito.times(1)).addUser(user);
@@ -51,6 +53,7 @@ public class UserServiceTest {
 
         User user = createTestUser();
 
+        Mockito.when(userDao.addUser(user)).thenReturn(Optional.of(1L));
         Long result = userService.addUser(user);
 
         assertNotNull(result);
@@ -60,7 +63,7 @@ public class UserServiceTest {
     public void testAddUser_userEquals_success() {
         User user = createTestUser();
 
-        Mockito.when(userDao.addUser(user)).thenReturn(1L);
+        Mockito.when(userDao.addUser(user)).thenReturn(Optional.of(1L));
         Long result = userService.addUser(user);
 
         assertEquals(result, (Long) 1L);

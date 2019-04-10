@@ -19,7 +19,7 @@ public interface UserDao {
      * @param user the user
      * @return user id
      */
-    Long addUser(User user);
+    Optional<Long> addUser(User user);
 
     /**
      * Delete user boolean.

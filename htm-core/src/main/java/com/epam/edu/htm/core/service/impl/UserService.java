@@ -17,7 +17,7 @@ public class UserService implements UserOperations {
             throw new IllegalArgumentException("Parameter 'user' can't be null");
         }
 
-        return dao.addUser(user);
+        return dao.addUser(user).get();
     }
 
     public Boolean deleteUser(Long id) {

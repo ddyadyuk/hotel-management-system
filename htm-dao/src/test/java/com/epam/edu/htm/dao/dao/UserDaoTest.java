@@ -2,6 +2,8 @@ package com.epam.edu.htm.dao.dao;
 
 import com.epam.edu.htm.core.dao.UserDao;
 import com.epam.edu.htm.dao.JdbcUserDao;
+import com.epam.edu.htm.model.Address;
+import com.epam.edu.htm.model.Contact;
 import com.epam.edu.htm.model.User;
 import org.junit.Test;
 import org.junit.jupiter.api.AfterEach;
@@ -17,6 +19,7 @@ import org.springframework.jdbc.support.GeneratedKeyHolder;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -44,8 +47,7 @@ public class UserDaoTest {
     public void addUser_UserNotNull_success(){
         User user = createTestUser();
 
-        when(jdbcTemplate.update(any(), Mockito.any(MapSqlParameterSource.class), Mockito.any(GeneratedKeyHolder.class),
-                any(String[].class))).thenAnswer(new Answer() {
+        when(jdbcTemplate.update(any(), Mockito.any(MapSqlParameterSource.class), Mockito.any(GeneratedKeyHolder.class))).thenAnswer(new Answer() {
             public Object answer(InvocationOnMock invocation) {
                 Object[] args = invocation.getArguments();
                 Map<String, Object> keyMap = new HashMap<String, Object>();
@@ -54,17 +56,16 @@ public class UserDaoTest {
                 return 1;
             }
         });
-       Long result = jdbcUserDao.addUser(user);
+       Optional<Long> result = jdbcUserDao.addUser(user);
 
-       assertEquals((Long) 1L, result);
+       assertEquals((Optional.of(1L)), result);
     }
 
     @Test
     public void addUser_IsUserNotNull_success(){
         User user = createTestUser();
 
-        when(jdbcTemplate.update(any(), Mockito.any(MapSqlParameterSource.class),
-                Mockito.any(GeneratedKeyHolder.class),any(String[].class))).thenAnswer(new Answer() {
+        when(jdbcTemplate.update(any(), Mockito.any(MapSqlParameterSource.class), Mockito.any(GeneratedKeyHolder.class))).thenAnswer(new Answer() {
             public Object answer(InvocationOnMock invocation) {
                 Object[] args = invocation.getArguments();
                 Map<String, Object> keyMap = new HashMap<String, Object>();
@@ -73,15 +74,15 @@ public class UserDaoTest {
                 return 1;
             }
         });
-        Long result = jdbcUserDao.addUser(user);
+        Optional<Long> result = jdbcUserDao.addUser(user);
 
         assertNotNull(result);
     }
     private User createTestUser(){
         User user = new User();
         user.setPassword("abc");
-//        user.setContact(new Contact());
-//        user.setAddress(new Address());
+        user.setContact(new Contact());
+        user.setAddress(new Address());
         user.setUserType("user");
         return user;
     }

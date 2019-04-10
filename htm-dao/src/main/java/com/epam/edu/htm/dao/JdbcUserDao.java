@@ -14,6 +14,7 @@ import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Component;
 
 import java.util.Objects;
+import java.util.Optional;
 
 @Component
 public class JdbcUserDao implements UserDao {
@@ -35,7 +36,7 @@ public class JdbcUserDao implements UserDao {
     }
 
     @Override
-    public Long addUser(User user) {
+    public Optional<Long> addUser(User user) {
 
         if (user == null) {
             throw new IllegalArgumentException("Parameter 'user' can't be null");
@@ -45,21 +46,19 @@ public class JdbcUserDao implements UserDao {
         MapSqlParameterSource mapSqlParameterSource = new MapSqlParameterSource();
 
         mapSqlParameterSource.addValue(USER_PASSWORD, user.getPassword())
+                .addValue(USER_CONTACT_ID, user.getContact().getContactId())
+                .addValue(USER_ADDRESS_ID, user.getAddress().getAddressId())
                 .addValue(USER_TYPE, user.getUserType());
-//                .addValue(USER_CONTACT_ID, user.getContact().getContactId())
-//                .addValue(USER_ADDRESS_ID, user.getAddress().getAddressId())
-
 
         int rowNumber = 0;
         try {
-            rowNumber = namedParameterJdbcTemplate.update(insert, mapSqlParameterSource, keyHolder,
-                    new String[] { "id_user"});
+            rowNumber = namedParameterJdbcTemplate.update(insert, mapSqlParameterSource, keyHolder);
         } catch (DataAccessException e) {
             LOGGER.warn("Could not save user.", e);
         }
 
         if (rowNumber > 0) {
-            return Objects.requireNonNull(keyHolder.getKey()).longValue();
+            return Optional.of(Objects.requireNonNull(keyHolder.getKey()).longValue());
         }
         return null;
     }
