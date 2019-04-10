@@ -1,7 +1,5 @@
 package com.epam.edu.htm.model;
 
-import javax.validation.constraints.NotNull;
-
 /**
  * Room Model Object.
  *

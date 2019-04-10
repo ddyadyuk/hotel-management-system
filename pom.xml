@@ -19,8 +19,7 @@
         <jacoco.version>0.8.2</jacoco.version>
         <junit.version>5.2.0</junit.version>
         <mockito.version>2.23.4</mockito.version>
-        <maven-compiler-source.version>8</maven-compiler-source.version>
-        <maven-compiler-target.version>8</maven-compiler-target.version>
+        <java.version>8</java.version>
         <maven-compiler.version>3.8.0</maven-compiler.version>
         <java-doc.version>3.0.1</java-doc.version>
         <spring.version>5.1.5.RELEASE</spring.version>
@@ -45,21 +44,18 @@
 
     <dependencyManagement>
         <dependencies>
-            <dependency>
-                <groupId>com.hotel-management-system.app</groupId>
-                <artifactId>htm-model</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.hotel-management-system.app</groupId>
-                <artifactId>htm-dao</artifactId>
-                <version>${project.version}</version>
-            </dependency>
+            <!--Logging-->
             <dependency>
                 <groupId>org.slf4j</groupId>
                 <artifactId>slf4j-api</artifactId>
                 <version>${slf4j.version}</version>
             </dependency>
+            <dependency>
+                <groupId>ch.qos.logback</groupId>
+                <artifactId>logback-classic</artifactId>
+                <version>${logback.version}</version>
+            </dependency>
+            <!--Testing-->
             <dependency>
                 <groupId>com.h2database</groupId>
                 <artifactId>h2</artifactId>
@@ -92,6 +88,13 @@
             </dependency>
             <dependency>
                 <groupId>org.springframework</groupId>
+                <artifactId>spring-test</artifactId>
+                <version>${spring.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <!--Spring-->
+            <dependency>
+                <groupId>org.springframework</groupId>
                 <artifactId>spring-core</artifactId>
                 <version>${spring.version}</version>
             </dependency>
@@ -99,12 +102,6 @@
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-jdbc</artifactId>
                 <version>${spring.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.springframework</groupId>
-                <artifactId>spring-test</artifactId>
-                <version>${spring.version}</version>
-                <scope>test</scope>
             </dependency>
             <dependency>
                 <groupId>org.springframework</groupId>
@@ -117,15 +114,15 @@
                 <version>${spring.version}</version>
             </dependency>
             <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-tx</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>javax.servlet</groupId>
                 <artifactId>javax.servlet-api</artifactId>
                 <version>${servlet-api.version}</version>
                 <scope>provided</scope>
-            </dependency>
-            <dependency>
-                <groupId>ch.qos.logback</groupId>
-                <artifactId>logback-classic</artifactId>
-                <version>${logback.version}</version>
             </dependency>
             <dependency>
                 <groupId>ch.qos.logback</groupId>
@@ -215,6 +212,14 @@
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-failsafe-plugin</artifactId>
                     <version>${failsafe.version}</version>
+                    <executions>
+                        <execution>
+                            <goals>
+                                <goal>integration-test</goal>
+                                <goal>verify</goal>
+                            </goals>
+                        </execution>
+                    </executions>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -225,6 +230,10 @@
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-compiler-plugin</artifactId>
                     <version>${maven-compiler.version}</version>
+                    <configuration>
+                        <source>${java.version}</source>
+                        <target>${java.version}</target>
+                    </configuration>
                 </plugin>
                 <plugin>
                     <groupId>com.github.spotbugs</groupId>
@@ -240,6 +249,24 @@
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-checkstyle-plugin</artifactId>
                     <version>${maven-check-style.version}</version>
+                    <configuration>
+                        <enableRulesSummary>true</enableRulesSummary>
+                        <consoleOutput>true</consoleOutput>
+                        <configLocation>checkstyle.xml</configLocation>
+                        <encoding>UTF-8</encoding>
+                        <consoleOutput>true</consoleOutput>
+                        <failsOnError>true</failsOnError>
+                        <failOnViolation>false</failOnViolation>
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <id>validate</id>
+                            <phase>validate</phase>
+                            <goals>
+                                <goal>check</goal>
+                            </goals>
+                        </execution>
+                    </executions>
                     <dependencies>
                         <dependency>
                             <groupId>com.puppycrawl.tools</groupId>
@@ -252,71 +279,33 @@
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-javadoc-plugin</artifactId>
                     <version>${java-doc.version}</version>
+                    <executions>
+                        <execution>
+                            <goals>
+                                <goal>javadoc</goal>
+                            </goals>
+                            <phase>site</phase>
+                        </execution>
+                    </executions>
                 </plugin>
             </plugins>
         </pluginManagement>
         <plugins>
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-failsafe-plugin</artifactId>
-                <configuration>
-                    <includes>
-                        <include>UserDaoIT.java</include>
-                    </includes>
-                </configuration>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>integration-test</goal>
-                            <goal>verify</goal>
-                        </goals>
-                    </execution>
-                </executions>
+                <groupId>com.github.spotbugs</groupId>
+                <artifactId>spotbugs-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-checkstyle-plugin</artifactId>
-                <configuration>
-                    <enableRulesSummary>true</enableRulesSummary>
-                    <consoleOutput>true</consoleOutput>
-                    <configLocation>checkstyle.xml</configLocation>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>validate</id>
-                        <phase>validate</phase>
-                        <configuration>
-                            <encoding>UTF-8</encoding>
-                            <consoleOutput>true</consoleOutput>
-                            <failsOnError>true</failsOnError>
-                            <failOnViolation>false</failOnViolation>
-                        </configuration>
-                        <goals>
-                            <goal>check</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>${maven-compiler-source.version}</source>
-                    <target>${maven-compiler-target.version}</target>
-                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>javadoc</goal>
-                        </goals>
-                        <phase>site</phase>
-                    </execution>
-                </executions>
             </plugin>
         </plugins>
     </build>

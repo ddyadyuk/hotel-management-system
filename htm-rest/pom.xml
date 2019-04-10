@@ -3,8 +3,8 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>hotel-management-system</artifactId>
         <groupId>com.hotel-management-system.app</groupId>
+        <artifactId>hotel-management-system</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
@@ -14,12 +14,8 @@
    <dependencies>
        <dependency>
            <groupId>com.hotel-management-system.app</groupId>
-           <artifactId>htm-core</artifactId>
-           <version>1.0-SNAPSHOT</version>
-       </dependency>
-       <dependency>
-           <groupId>com.hotel-management-system.app</groupId>
            <artifactId>htm-dao</artifactId>
+           <version>${project.version}</version>
        </dependency>
        <dependency>
            <groupId>org.springframework</groupId>
@@ -30,17 +26,8 @@
            <artifactId>javax.servlet-api</artifactId>
        </dependency>
        <dependency>
-           <groupId>com.fasterxml.jackson.core</groupId>
-           <artifactId>jackson-databind</artifactId>
-       </dependency>
-       <dependency>
-           <groupId>com.fasterxml.jackson.core</groupId>
-           <artifactId>jackson-core</artifactId>
-       </dependency>
-       <dependency>
            <groupId>javax.validation</groupId>
            <artifactId>validation-api</artifactId>
-           <version>${validation-api.version}</version>
        </dependency>
        <dependency>
            <groupId>org.hibernate</groupId>
@@ -50,6 +37,20 @@
            <groupId>org.glassfish</groupId>
            <artifactId>javax.el</artifactId>
        </dependency>
+       <dependency>
+           <groupId>org.springframework</groupId>
+           <artifactId>spring-tx</artifactId>
+       </dependency>
+       <dependency>
+           <groupId>com.fasterxml.jackson.core</groupId>
+           <artifactId>jackson-databind</artifactId>
+       </dependency>
+       <dependency>
+           <groupId>com.fasterxml.jackson.core</groupId>
+           <artifactId>jackson-core</artifactId>
+       </dependency>
+
+
    </dependencies>
 
 </project>

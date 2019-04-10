@@ -36,8 +36,11 @@ public class JdbcUserDao implements UserDao {
     }
 
     @Override
-    public Long addUser(Optional<User> optionalUser) {
-        User user = optionalUser.orElseThrow(IllegalArgumentException::new);
+    public Optional<Long> addUser(User user) {
+
+        if (user == null) {
+            throw new IllegalArgumentException("Parameter 'user' can't be null");
+        }
 
         KeyHolder keyHolder = new GeneratedKeyHolder();
         MapSqlParameterSource mapSqlParameterSource = new MapSqlParameterSource();
@@ -55,13 +58,13 @@ public class JdbcUserDao implements UserDao {
         }
 
         if (rowNumber > 0) {
-            return Objects.requireNonNull(keyHolder.getKey()).longValue();
+            return Optional.of(Objects.requireNonNull(keyHolder.getKey()).longValue());
         }
         return null;
     }
 
     @Override
     public Boolean deleteUser(Long id) {
-        return null;
+        return true;
     }
 }

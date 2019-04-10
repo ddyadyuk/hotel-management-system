@@ -1,7 +1,5 @@
 package com.epam.edu.htm.model;
 
-import javax.validation.constraints.NotNull;
-
 /**
  * Guest Model Object.
  *

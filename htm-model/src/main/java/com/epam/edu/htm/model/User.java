@@ -1,8 +1,5 @@
 package com.epam.edu.htm.model;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-
-
 /**
  * User Model Object.
  *
@@ -11,7 +8,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
  * @author Dmitry Dyadyuk
  * @version 1.0
  */
-@JsonInclude(JsonInclude.Include.NON_NULL)
+
 public class User {
 
     private Long userId;
