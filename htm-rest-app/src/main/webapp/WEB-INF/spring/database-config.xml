@@ -1,15 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns:context="http://www.springframework.org/schema/context"
-       xmlns:jdbc="http://www.springframework.org/schema/jdbc"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns="http://www.springframework.org/schema/beans"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
        http://www.springframework.org/schema/beans/spring-beans.xsd
        http://www.springframework.org/schema/context
-       http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd">
+       http://www.springframework.org/schema/context/spring-context.xsd">
 
-    <context:component-scan base-package="com.epam.edu.htm"/>
-    <context:property-placeholder location="classpath*:dataBase.properties"/>
+    <context:property-placeholder location="classpath*:db/database.properties"/>
 
     <bean class="org.springframework.jdbc.datasource.DriverManagerDataSource" id="dataSource">
         <property name="driverClassName" value="${postgres.diverClassName}"/>
@@ -18,16 +16,15 @@
         <property name="password" value="${postgres.password}"/>
     </bean>
 
-    <jdbc:initialize-database>
-        <jdbc:script location="classpath:/dbConf/createDatabase.sql"/>
-    </jdbc:initialize-database>
-
-    <bean class="org.springframework.jdbc.datasource.DataSourceTransactionManager"
-          id="transactionManager">
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
         <property name="dataSource" ref="dataSource"/>
     </bean>
 
-    <bean class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate" id="namedParameterJdbcTemplate">
+    <bean  id="jdbcTemplate" class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate">
         <constructor-arg type="javax.sql.DataSource" ref="dataSource"/>
+    </bean>
+
+    <bean id="jdbcUserDao" class="com.epam.edu.htm.dao.JdbcUserDao" >
+        <constructor-arg name="namedParameterJdbcTemplate" ref="jdbcTemplate"/>
     </bean>
 </beans>
