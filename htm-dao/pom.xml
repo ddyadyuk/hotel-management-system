@@ -11,6 +11,10 @@
 
     <artifactId>htm-dao</artifactId>
 
+    <properties>
+        <flyway.version>5.2.4</flyway.version>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>com.hotel-management-system.app</groupId>
@@ -40,6 +44,43 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-failsafe-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.flywaydb</groupId>
+                <artifactId>flyway-maven-plugin</artifactId>
+                <version>${flyway.version}</version>
+                <configuration>
+                    <driver>org.postgresql.Driver</driver>
+                    <url>jdbc:postgresql://10.26.9.106:5432/hotel_user</url>
+                    <user>hotel_user</user>
+                    <password>hotelUser</password>
+                    <schemas>
+                        <schema>flyway</schema>
+                        <schema>htm</schema>
+                    </schemas>
+                    <table>schema_version</table>
+                    <encoding>UTF-8</encoding>
+                    <sqlMigrationSeparator>__</sqlMigrationSeparator>
+                    <sqlMigrationSuffixes>
+                        <sqlMigrationSuffix>.sql</sqlMigrationSuffix>
+                    </sqlMigrationSuffixes>
+                    <mixed>true</mixed>
+                    <ignoreMissingMigrations>false</ignoreMissingMigrations>
+                    <ignoreIgnoredMigrations>false</ignoreIgnoredMigrations>
+                    <ignoreFutureMigrations>false</ignoreFutureMigrations>
+                    <cleanDisabled>false</cleanDisabled>
+                    <baselineOnMigrate>false</baselineOnMigrate>
+                    <baselineVersion>5</baselineVersion>
+                    <baselineDescription>Let's go!</baselineDescription>
+                    <installedBy>hotel_user</installedBy>
+                </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.postgresql</groupId>
+                        <artifactId>postgresql</artifactId>
+                        <version>${postgresql.version}</version>
+                    </dependency>
+                </dependencies>
             </plugin>
         </plugins>
     </build>

@@ -15,7 +15,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import javax.sql.DataSource;
 
 @Configuration
-@PropertySource({"classpath:sql.properties"})
+@PropertySource({"classpath:db/sql.properties"})
 @EnableTransactionManagement
 public class DataBaseTestConfig {
 

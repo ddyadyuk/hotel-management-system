@@ -6,7 +6,7 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.core.io.ClassPathResource;
 
-@Configuration@PropertySource("classpath:sql.properties")
+@Configuration@PropertySource("classpath:db/sql.properties")
 public class DaoConfig {
 
     @Bean
