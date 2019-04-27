@@ -2,7 +2,7 @@ package com.epam.edu.htm.controller;
 
 import com.epam.edu.htm.controler.controller.UserController;
 import com.epam.edu.htm.controler.errorhandler.CustomRestExceptionHandler;
-import com.epam.edu.htm.controller.config.UserControllerTestConfig;
+import com.epam.edu.htm.controller.config.ControllerTestConfig;
 import com.epam.edu.htm.core.service.impl.UserService;
 import com.epam.edu.htm.model.User;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -25,7 +25,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {UserControllerTestConfig.class})
+@ContextConfiguration(classes = {ControllerTestConfig.class})
 @WebAppConfiguration
 public class UserControllerTest {
 
