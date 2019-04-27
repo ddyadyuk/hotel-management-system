@@ -20,14 +20,13 @@ public class AddressService implements AddressOperations {
             throw new IllegalArgumentException("Parameter 'address' can't be null");
         }
 
-        return addressDao.addAddress(address)
-                .orElseThrow(() -> new IllegalArgumentException("The value is not present"));
+        return addressDao.addAddress(address).get();
     }
 
     @Override
     public Boolean editAddress(Address address) {
-        if (address == null ) {
-            throw new IllegalArgumentException("Parameter 'address' can't be null");
+        if(address == null) {
+            throw new IllegalArgumentException("Parameter 'address' can't e null");
         }
 
         return addressDao.editAddress(address);
@@ -35,23 +34,11 @@ public class AddressService implements AddressOperations {
 
     @Override
     public List<Address> findAllAddresses() {
-        return addressDao.findAllAddresses();
+        return null;
     }
 
     @Override
     public Address findAddressById(Long id) {
-        if (id == null ) {
-            throw new IllegalArgumentException("Parameter 'id' can't be null");
-        }
-
-            return addressDao.findAddressById(id);
-    }
-
-    @Override
-    public Boolean deleteAddress(Long id) {
-        if (id == null ) {
-            throw new IllegalArgumentException("Parameter 'id' can't be null");
-        }
-        return addressDao.deleteAddress(id);
+        return null;
     }
 }
