@@ -19,7 +19,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -80,82 +80,10 @@ public class AddressControllerTest {
         when(addressService.addAddress(any())).thenReturn(null);
 
         mockMvc.perform(post("/address")
-                .accept(MediaType.APPLICATION_JSON_UTF8_VALUE)
-                .contentType(MediaType.APPLICATION_JSON_UTF8_VALUE)
-                .content(content)).andExpect(status().isBadRequest());
+        .accept(MediaType.APPLICATION_JSON_UTF8_VALUE)
+        .contentType(MediaType.APPLICATION_JSON_UTF8_VALUE)
+        .content(content)).andExpect(status().isBadRequest());
     }
 
-    @Test
-    public void testEditAddress_AddressIsOK_IsOk_IsOk() throws Exception {
-        Address address = new Address();
-        address.setFirsAddress("Europe");
-        address.setSecondAddress("Belarus");
 
-        objectMapper = new ObjectMapper();
-        String content = objectMapper.writeValueAsString(address);
-
-        when(addressService.editAddress(address)).thenReturn(true);
-
-        mockMvc.perform(put("/address/1")
-                .accept(MediaType.APPLICATION_JSON_UTF8_VALUE)
-                .contentType(MediaType.APPLICATION_JSON_UTF8_VALUE)
-                .content(content)).andExpect(status().isOk());
-    }
-
-    @Test
-    public void testEditAddress_ContentTypeIsIncorrect_IsUnsupportedMediaType() throws Exception {
-        mockMvc.perform(put("/address/1")
-                .accept(MediaType.APPLICATION_JSON_UTF8_VALUE)
-                .contentType(MediaType.TEXT_PLAIN)).andExpect(status().isUnsupportedMediaType());
-    }
-
-    @Test
-    public void testEditAddress_ContentIsNull_IsBadRequest() throws Exception {
-        Address address = null;
-        objectMapper = new ObjectMapper();
-        String content = objectMapper.writeValueAsString(address);
-
-        when(addressService.editAddress(any())).thenReturn(null);
-
-        mockMvc.perform(put("/address/1")
-                .accept(MediaType.APPLICATION_JSON_UTF8_VALUE)
-                .contentType(MediaType.APPLICATION_JSON_UTF8_VALUE)
-                .content(content)).andExpect(status().isBadRequest());
-
-    }
-
-    @Test
-    public void testFindAllAddresses_IncorrectMediaType_IsNotAcceptable() throws Exception {
-        mockMvc.perform(get("/address/")
-                .accept(MediaType.TEXT_HTML)).andExpect(status().isNotAcceptable());
-    }
-
-    @Test
-    public void testFindAllAddresses_UrlIsWrong_MethodNotAllowed() throws Exception {
-        mockMvc.perform(get("/address")
-                .accept(MediaType.APPLICATION_JSON_UTF8_VALUE)).andExpect(status().isMethodNotAllowed());
-    }
-
-    @Test
-    public void testFindAddressById_AddressIdIsCorrespond_isOk() throws Exception {
-        Address address = new Address();
-        address.setFirsAddress("Europe");
-        address.setSecondAddress("Belarus");
-
-        objectMapper = new ObjectMapper();
-        String content = objectMapper.writeValueAsString(address);
-
-        mockMvc.perform(get("/address/1")
-                .accept(MediaType.APPLICATION_JSON_UTF8_VALUE)
-                .contentType(MediaType.APPLICATION_JSON_UTF8_VALUE)
-                .content(content)).andExpect(status().isOk());
-    }
-
-    @Test
-    public void testDeleteAddress_AddressIsCorrespond_IsOk() throws Exception {
-        when(addressService.deleteAddress(1L)).thenReturn(true);
-
-        mockMvc.perform(delete("/address/1")
-                .accept(MediaType.APPLICATION_JSON_UTF8_VALUE)).andExpect(status().isOk());
-    }
 }
