@@ -17,4 +17,8 @@
     <bean class="com.epam.edu.htm.core.service.impl.UserService" id="userService">
         <constructor-arg ref="jdbcUserDao"/>
     </bean>
+
+    <bean class="com.epam.edu.htm.core.service.impl.AddressService" id="addressService">
+        <constructor-arg ref="jdbcAddressDao"/>
+    </bean>
 </beans>
