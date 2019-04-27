@@ -10,7 +10,6 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
-import java.util.List;
 import java.util.Optional;
 
 import static org.junit.Assert.assertEquals;
@@ -39,6 +38,7 @@ public class AddressServiceTest {
         Address address = createTestAddress();
 
         when(addressDao.addAddress(address)).thenReturn(Optional.of(1L));
+
         Long result = addressService.addAddress(address);
 
         assertNotNull(result);
@@ -57,8 +57,8 @@ public class AddressServiceTest {
     @Test
     public void testEditUser_AddressIdIsOk_Success() {
         Address address = createTestAddress();
-
         when(addressDao.editAddress(address)).thenReturn(true);
+
         Boolean result = addressService.editAddress(address);
 
         assertNotNull(result);
@@ -67,72 +67,9 @@ public class AddressServiceTest {
 
     @Test
     public void testEditAddress_AddressIdIsNull_Fail() {
-        Address address = createTestAddress();
-        address.setAddressId(null);
-
-        when(addressDao.editAddress(address)).thenThrow(IllegalArgumentException.class);
-
-        assertThrows(IllegalArgumentException.class, () -> addressService.editAddress(address));
-    }
-
-    @Test
-    public void testEditAddress_AddressIdIsLessThanZero_Fail() {
-        Address address = createTestAddress();
-        address.setAddressId(-2L);
-
-        when(addressDao.editAddress(address)).thenThrow(IllegalArgumentException.class);
-
-        assertThrows(IllegalArgumentException.class, () -> addressService.editAddress(address));
-    }
-
-
-    @Test
-    public void testEditAddress_AddressIsNull_Fail() {
         when(addressDao.editAddress(null)).thenThrow(IllegalArgumentException.class);
 
         assertThrows(IllegalArgumentException.class, () -> addressService.editAddress(null));
-    }
-
-
-    @Test
-    public void testFindAllAddresses_AllAddressesIsPresent_Success() {
-        List<Address> result = addressService.findAllAddresses();
-
-        assertNotNull(result);
-    }
-
-    @Test
-    public void testFindAddressById_IdIsOk_Success() {
-        Address address = createTestAddress();
-
-        when(addressDao.findAddressById(1L)).thenReturn(address);
-        Address result = addressService.findAddressById(1L);
-
-        assertNotNull(result);
-    }
-
-    @Test
-    public void testFindAddressById_IdIsNull_Fail() {
-        when(addressDao.findAddressById(null)).thenThrow(IllegalArgumentException.class);
-
-        assertThrows(IllegalArgumentException.class,() -> addressService.findAddressById(null));
-    }
-
-    @Test
-    public void testDeleteAddres_IdISCorrect_Success() {
-        when(addressDao.deleteAddress(1L)).thenReturn(true);
-
-        Boolean result = addressService.deleteAddress(1L);
-
-        assertNotNull(result);
-        assertEquals(result, true);
-    }
-
-    @Test
-    public void testDeleteAddress_IdIsNull_Fail() {
-        when(addressDao.deleteAddress(null)).thenThrow(IllegalArgumentException.class);
-
-        assertThrows(IllegalArgumentException.class, () -> addressService.deleteAddress(null));
     }
 
     private Address createTestAddress() {
