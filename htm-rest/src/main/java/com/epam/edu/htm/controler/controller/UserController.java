@@ -13,14 +13,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.Optional;
 
 @Controller
 @RequestMapping("/user")
 public class UserController {
     private static final Logger LOGGER = LoggerFactory.getLogger(UserController.class);
     private UserService userService;
-
+    
     @Autowired
     public UserController(UserService userService) {
         this.userService = userService;

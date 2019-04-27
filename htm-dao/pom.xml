@@ -51,7 +51,7 @@
                 <version>${flyway.version}</version>
                 <configuration>
                     <driver>org.postgresql.Driver</driver>
-                    <url>jdbc:postgresql://10.26.9.106:5432/hotel_user</url>
+                    <url>jdbc:postgresql://10.26.9.73:5432/hotel_user</url>
                     <user>hotel_user</user>
                     <password>hotelUser</password>
                     <schemas>
