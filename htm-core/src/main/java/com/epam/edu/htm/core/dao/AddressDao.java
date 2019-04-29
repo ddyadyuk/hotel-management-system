@@ -7,11 +7,6 @@ import java.util.Optional;
 
 /**
  * The interface Address dao.
- *
- * <P>various behavior methods of address </P>
- *
- * @author Dmitry Dyadyuk
- * @version 1.0
  */
 public interface AddressDao {
 
@@ -46,4 +41,12 @@ public interface AddressDao {
      * @return the address
      */
     Address findAddressById(Long id);
+
+    /**
+     * Delete address boolean.
+     *
+     * @param id the id
+     * @return the boolean
+     */
+    Boolean deleteAddress(Long id);
 }
