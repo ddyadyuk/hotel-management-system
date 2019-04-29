@@ -1,6 +1,6 @@
 package com.epam.edu.htm.dao.config;
 
-import com.epam.edu.htm.dao.mapper.AddressMapper;
+import com.epam.edu.htm.dao.mapper.UserRowMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
@@ -20,7 +20,8 @@ public class DaoConfig {
     }
 
     @Bean
-    public static AddressMapper addressMapper() {
-        return new AddressMapper();
+    public static UserRowMapper userRowMapper() {
+        return new UserRowMapper();
     }
+
 }
