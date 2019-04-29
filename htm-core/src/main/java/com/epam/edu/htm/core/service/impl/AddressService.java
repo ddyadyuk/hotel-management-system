@@ -8,6 +8,8 @@ import java.util.List;
 
 public class AddressService implements AddressOperations {
     private AddressDao addressDao;
+    private static final String ADDRESS_MESSAGE = "Parameter 'address' can't be null";
+    private static final String ID_NOT_NULL_MESSAGE = "Parameter 'id' can't be null";
 
     public AddressService(AddressDao addressDao) {
         this.addressDao = addressDao;
@@ -17,7 +19,7 @@ public class AddressService implements AddressOperations {
     public Long addAddress(Address address) {
 
         if (address == null) {
-            throw new IllegalArgumentException("Parameter 'address' can't be null");
+            throw new IllegalArgumentException(ADDRESS_MESSAGE);
         }
 
         return addressDao.addAddress(address).get();
@@ -25,8 +27,8 @@ public class AddressService implements AddressOperations {
 
     @Override
     public Boolean editAddress(Address address) {
-        if(address == null) {
-            throw new IllegalArgumentException("Parameter 'address' can't e null");
+        if (address == null || address.getAddressId() == null || address.getAddressId() <0) {
+            throw new IllegalArgumentException(ADDRESS_MESSAGE);
         }
 
         return addressDao.editAddress(address);
@@ -34,11 +36,23 @@ public class AddressService implements AddressOperations {
 
     @Override
     public List<Address> findAllAddresses() {
-        return null;
+        return addressDao.findAllAddresses();
     }
 
     @Override
     public Address findAddressById(Long id) {
-        return null;
+        if (id == null ) {
+            throw new IllegalArgumentException(ID_NOT_NULL_MESSAGE);
+        }
+
+            return addressDao.findAddressById(id);
+    }
+
+    @Override
+    public Boolean deleteAddress(Long id) {
+        if (id == null ) {
+            throw new IllegalArgumentException(ID_NOT_NULL_MESSAGE);
+        }
+        return addressDao.deleteAddress(id);
     }
 }

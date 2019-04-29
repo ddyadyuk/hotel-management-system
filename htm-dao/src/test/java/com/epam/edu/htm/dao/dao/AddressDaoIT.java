@@ -6,10 +6,12 @@ import com.epam.edu.htm.model.Address;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 import static org.junit.Assert.assertEquals;
@@ -52,6 +54,45 @@ public class AddressDaoIT {
         assertThrows(IllegalArgumentException.class, () -> addressDao.editAddress(null));
     }
 
+    @Test
+    public void testFindAllAddresses_AllAddressesReceived_Success() {
+        List<Address> result = addressDao.findAllAddresses();
+
+        assertNotNull(result);
+        assertEquals(result.size(), 3);
+
+    }
+
+    @Test
+    public void testFindAddressById_IdIsCorrect_Success() {
+        Address address = addressDao.findAddressById(1L);
+
+        assertNotNull(address);
+        assertEquals((Long) 1L, address.getAddressId());
+    }
+
+    @Test
+    public void testFindAddressById_IdIsNull_Fail() {
+        assertThrows(IllegalArgumentException.class, () -> addressDao.findAddressById(null));
+    }
+
+    @Test
+    public void testDeleteAddress_AddressIsPresent_Success() {
+        Boolean result = addressDao.deleteAddress(1L);
+
+        assertNotNull(result);
+        assertEquals(result, true);
+    }
+
+    @Test
+    public void testDeleteUser_IdIsNull_Fail() {
+        assertThrows(IllegalArgumentException.class, () -> addressDao.deleteAddress(null));
+    }
+
+    @Test
+    public void testDeleteAddress_AddressIsAbsentInDB_Fail() {
+        assertThrows(EmptyResultDataAccessException.class, () -> addressDao.deleteAddress(20L));
+    }
     private Address createTestAddress() {
         return new Address(1L, "Europe", "Belarus", "Brest region", "Brest", "Masherova", "12345");
     }
