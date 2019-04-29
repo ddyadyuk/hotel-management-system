@@ -36,6 +36,7 @@ public class UserDaoIT {
     @Test
     public void testAddUser_NotNull_Success() {
         User user = createTestUser();
+        user.setUserId(null);
 
         Optional<Long> result = userDao.addUser(user);
 
