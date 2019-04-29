@@ -1,6 +1,7 @@
 package com.epam.edu.htm.dao;
 
 import com.epam.edu.htm.core.dao.AddressDao;
+import com.epam.edu.htm.dao.mapper.AddressMapper;
 import com.epam.edu.htm.model.Address;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,25 +31,34 @@ public class JdbcAddressDao implements AddressDao {
     private static final String STREET = "street";
     private static final String POSTAL_CODE = "postal_code";
     private static final String ADDRESS_ID_INFORMATION_MESSAGE = "There are no Address with corresponding id";
-
-    private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+    private static final String ADDRESS_ID_NOT_NULL_MESSAGE = "Parameter 'id' can not be null";
+    private static final String ADDRESS_NOT_NULL_MESSAGE = "Parameter 'address' can not be null";
 
     @Value("${add_address}")
     private String addAddressQuery;
     @Value("${update_address}")
     private String updateAddressQuery;
+    @Value("${findAll_addresses}")
+    private String findAllAddressesQuery;
+    @Value("${find_address_by_id}")
+    private String findAddressByIdQuery;
+    @Value("${delete_address}")
+    private String deleteAddressQuery;
+
+    private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+
+    private final AddressMapper addressMapper = new AddressMapper();
 
     @Autowired
     public JdbcAddressDao(NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
         this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
     }
 
-
     @Override
     public Optional<Long> addAddress(Address address) {
 
         if (address == null) {
-            throw new IllegalArgumentException("Parameter 'address' can not be null");
+            throw new IllegalArgumentException(ADDRESS_NOT_NULL_MESSAGE);
         }
 
         KeyHolder keyHolder = new GeneratedKeyHolder();
@@ -79,7 +89,7 @@ public class JdbcAddressDao implements AddressDao {
     public Boolean editAddress(Address address) {
 
         if (address == null) {
-            throw new IllegalArgumentException("Parameter 'id' can not be null");
+            throw new IllegalArgumentException(ADDRESS_NOT_NULL_MESSAGE);
         }
 
         MapSqlParameterSource mapSqlParameterSource = new MapSqlParameterSource();
@@ -107,11 +117,48 @@ public class JdbcAddressDao implements AddressDao {
 
     @Override
     public List<Address> findAllAddresses() {
-        return null;
+        return namedParameterJdbcTemplate.query(findAllAddressesQuery, addressMapper);
     }
 
     @Override
     public Address findAddressById(Long id) {
-        return null;
+
+        if (id == null) {
+            throw new IllegalArgumentException(ADDRESS_ID_NOT_NULL_MESSAGE);
+        }
+
+        MapSqlParameterSource mapSqlParameterSource = new MapSqlParameterSource(ADDRESS_ID, id);
+        Address address;
+        try {
+            address = namedParameterJdbcTemplate
+                    .queryForObject(findAddressByIdQuery, mapSqlParameterSource, addressMapper);
+        } catch (EmptyResultDataAccessException e) {
+            LOGGER.debug(ADDRESS_ID_INFORMATION_MESSAGE);
+            throw e;
+        }
+
+        return address;
+    }
+
+    @Override
+    public Boolean deleteAddress(Long id) {
+        if(id == null) {
+            throw new IllegalArgumentException(ADDRESS_ID_NOT_NULL_MESSAGE);
+        }
+
+        MapSqlParameterSource mapSqlParameterSource = new MapSqlParameterSource(ADDRESS_ID, id);
+
+        int rowNubmer = 0;
+        try{
+            rowNubmer = namedParameterJdbcTemplate.update(deleteAddressQuery, mapSqlParameterSource);
+            if(rowNubmer == 0) {
+                throw new EmptyResultDataAccessException(rowNubmer);
+            }
+        }
+        catch (EmptyResultDataAccessException e){
+            LOGGER.debug(ADDRESS_ID_INFORMATION_MESSAGE);
+            throw e;
+        }
+        return true;
     }
 }
