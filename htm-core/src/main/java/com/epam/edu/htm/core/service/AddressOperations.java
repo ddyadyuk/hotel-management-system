@@ -40,4 +40,12 @@ public interface AddressOperations {
      * @return the address
      */
     Address findAddressById(Long id);
+
+    /**
+     * Delete address boolean.
+     *
+     * @param id the id
+     * @return the boolean
+     */
+    Boolean deleteAddress(Long id);
 }
