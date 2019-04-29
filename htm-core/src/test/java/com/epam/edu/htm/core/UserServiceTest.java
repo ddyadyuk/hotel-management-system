@@ -2,8 +2,6 @@ package com.epam.edu.htm.core;
 
 import com.epam.edu.htm.core.dao.UserDao;
 import com.epam.edu.htm.core.service.impl.UserService;
-import com.epam.edu.htm.model.Address;
-import com.epam.edu.htm.model.Contact;
 import com.epam.edu.htm.model.User;
 import org.junit.Test;
 import org.junit.jupiter.api.AfterEach;
@@ -12,14 +10,14 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
+import java.util.List;
 import java.util.Optional;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.anyLong;
-import static org.mockito.Mockito.verifyNoMoreInteractions;
-import static org.mockito.Mockito.verifyZeroInteractions;
+import static org.mockito.Mockito.*;
 
 public class UserServiceTest {
     @Mock
@@ -38,7 +36,7 @@ public class UserServiceTest {
     }
 
     @Test
-    public void testAddUser_userNotNull_success() {
+    public void testAddUser_UserNotNull_Success() {
 
         User user = createTestUser();
 
@@ -49,7 +47,7 @@ public class UserServiceTest {
     }
 
     @Test
-    public void testAddUser_userNotNull_responseNotnull() {
+    public void testAddUser_UserNotNull_ResponseNotnull() {
 
         User user = createTestUser();
 
@@ -60,7 +58,7 @@ public class UserServiceTest {
     }
 
     @Test
-    public void testAddUser_userEquals_success() {
+    public void testAddUser_UserEquals_Success() {
         User user = createTestUser();
 
         Mockito.when(userDao.addUser(user)).thenReturn(Optional.of(1L));
@@ -70,7 +68,7 @@ public class UserServiceTest {
     }
 
     @Test
-    public void testAddUser_userNull_fail() {
+    public void testAddUser_UserNull_Fail() {
         Mockito.when(userDao.addUser(null)).thenThrow(IllegalArgumentException.class);
 
         assertThrows(IllegalArgumentException.class, () -> userService.addUser(null));
@@ -78,7 +76,7 @@ public class UserServiceTest {
     }
 
     @Test
-    public void testDeleteUser_userIdNotNull_success() {
+    public void testDeleteUser_UserIdNotNull_Success() {
         Mockito.when(userDao.deleteUser(anyLong())).thenReturn(true);
 
         Boolean result = userService.deleteUser(anyLong());
@@ -87,18 +85,87 @@ public class UserServiceTest {
     }
 
     @Test
-    public void testDeleteUser_userIdNull_fail() {
+    public void testDeleteUser_UserIdNull_Fail() {
         Mockito.when(userDao.deleteUser(null)).thenThrow(IllegalArgumentException.class);
 
         assertThrows(IllegalArgumentException.class, () -> userService.deleteUser(null));
         verifyZeroInteractions(userDao);
     }
 
+    @Test
+    public void testDeleteUser_EqualResult_Success(){
+        Mockito.when(userDao.deleteUser(anyLong())).thenReturn(true);
+
+        Boolean result = userService.deleteUser(anyLong());
+
+        assertEquals(result, true);
+    }
+
+    @Test
+    public void testFindAllUsers_AllUsersPresent_Success() {
+
+        List<User> result = userService.findAllUsers();
+
+        assertNotNull(result);
+    }
+
+    @Test
+    public void testFindUserById_UserIdIsCorrect() {
+        User user = createTestUser();
+        when(userDao.findUserById(any())).thenReturn(user);
+
+        User result = userService.findUserById(anyLong());
+
+        assertNotNull(result);
+    }
+
+    @Test
+    public void testFindUserById_UserIdIsNull_Fail() {
+        when(userDao.findUserById(null)).thenThrow(IllegalArgumentException.class);
+
+        assertThrows(IllegalArgumentException.class, () -> userService.findUserById(null));
+    }
+
+    @Test
+    public void  testEditUser_UserIsCorrect_Success() {
+        User user = createTestUser();
+        when(userDao.editUser(user)).thenReturn(true);
+
+        Boolean result = userService.editUser(user);
+
+        assertEquals(true, result);
+    }
+
+    @Test
+    public void testEditUser_UserIsNull_Fail() {
+        when(userDao.editUser(null)).thenThrow(IllegalArgumentException.class);
+
+        assertThrows(IllegalArgumentException.class,() -> userService.editUser(null));
+    }
+
+    @Test
+    public void testEditUser_UserIdIsNull_Fail() {
+        User user = createTestUser();
+        user.setUserId(null);
+
+        when(userDao.editUser(null)).thenThrow(IllegalArgumentException.class);
+
+        assertThrows(IllegalArgumentException.class,() -> userService.editUser(null));
+    }
+
+    @Test
+    public void testEditUser_UserIdIsLessThanZero_Fail() {
+        User user = createTestUser();
+        user.setUserId(-2L);
+        when(userDao.editUser(null)).thenThrow(IllegalArgumentException.class);
+
+        assertThrows(IllegalArgumentException.class,() -> userService.editUser(null));
+    }
     private User createTestUser() {
         User user = new User();
+        user.setUserId(1L);
         user.setPassword("abc");
-        user.setContact(new Contact());
-        user.setAddress(new Address());
+        user.setName("Yuri");
         user.setUserType("user");
         return user;
     }

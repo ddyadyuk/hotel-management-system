@@ -2,13 +2,18 @@ package com.epam.edu.htm.controler.dto;
 
 import com.epam.edu.htm.model.Address;
 import com.epam.edu.htm.model.Contact;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
 import javax.validation.constraints.NotNull;
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class UserDto {
 
     @NotNull
     private String password;
+
+    @NotNull
+    private String name;
 
     private Contact contact;
 
@@ -25,8 +30,9 @@ public class UserDto {
      * @param address  the address
      * @param userType the user type
      */
-    public UserDto(String password, Contact contact, Address address, String userType) {
+    public UserDto(String password,String name, Contact contact, Address address, String userType) {
         this.password = password;
+        this.name = name;
         this.contact = contact;
         this.address = address;
         this.userType = userType;
@@ -36,6 +42,24 @@ public class UserDto {
      * Instantiates a new User.
      */
     public UserDto() {
+    }
+
+    /**
+     * Gets name.
+     *
+     * @return the name
+     */
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * Sets name.
+     *
+     * @param name the name
+     */
+    public void setName(String name) {
+        this.name = name;
     }
 
     /**
@@ -108,5 +132,16 @@ public class UserDto {
      */
     public void setUserType(String userType) {
         this.userType = userType;
+    }
+
+    @Override
+    public String toString() {
+        return "UserDto{" +
+                "password='" + password + '\'' +
+                ", name='" + name + '\'' +
+                ", contact=" + contact +
+                ", address=" + address +
+                ", userType='" + userType + '\'' +
+                '}';
     }
 }

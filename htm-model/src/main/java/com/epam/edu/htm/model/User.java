@@ -1,5 +1,7 @@
 package com.epam.edu.htm.model;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 /**
  * User Model Object.
  *
@@ -14,6 +16,8 @@ public class User {
     private Long userId;
 
     private String password;
+
+    private String name;
 
     private Contact contact;
 
@@ -30,9 +34,10 @@ public class User {
      * @param address  the address
      * @param userType the user type
      */
-    public User(Long userId, String password, Contact contact, Address address, String userType) {
+    public User(Long userId, String password,String name, Contact contact, Address address, String userType) {
         this.userId = userId;
         this.password = password;
+        this.name = name;
         this.contact = contact;
         this.address = address;
         this.userType = userType;
@@ -51,10 +56,29 @@ public class User {
      * @param password the password
      * @param userType the user type
      */
-    public User(Long userId, String password, String userType) {
+    public User(Long userId, String password,String name, String userType) {
         this.userId = userId;
         this.password = password;
+        this.name = name;
         this.userType = userType;
+    }
+
+    /**
+     * Gets name.
+     *
+     * @return the name
+     */
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * Sets name.
+     *
+     * @param name the name
+     */
+    public void setName(String name) {
+        this.name = name;
     }
 
     /**
@@ -149,13 +173,13 @@ public class User {
 
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder("User{");
-        sb.append("userId=").append(userId);
-        sb.append(", password='").append(password).append('\'');
-        sb.append(", contact=").append(contact);
-        sb.append(", address=").append(address);
-        sb.append(", userType='").append(userType).append('\'');
-        sb.append('}');
-        return sb.toString();
+        return "User{" +
+                "userId=" + userId +
+                ", password='" + password + '\'' +
+                ", name='" + name + '\'' +
+                ", contact=" + contact +
+                ", address=" + address +
+                ", userType='" + userType + '\'' +
+                '}';
     }
 }
