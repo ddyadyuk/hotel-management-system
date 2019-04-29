@@ -137,6 +137,7 @@ CREATE TABLE IF NOT EXISTS HTM."user"
 (
     id_user    BIGSERIAL   NOT NULL,
     password   VARCHAR(45) NOT NULL,
+    user_name  VARCHAR(50) NOT NULL,
     contact    INT8,
     address    INT8,
     user_type  VARCHAR(45) NOT NULL,
