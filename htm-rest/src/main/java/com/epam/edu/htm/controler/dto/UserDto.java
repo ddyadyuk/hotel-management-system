@@ -23,6 +23,28 @@ public class UserDto {
     private String userType;
 
     /**
+     * Instantiates a new User.
+     *
+     * @param password the password
+     * @param contact  the contact
+     * @param address  the address
+     * @param userType the user type
+     */
+    public UserDto(String password,String name, Contact contact, Address address, String userType) {
+        this.password = password;
+        this.name = name;
+        this.contact = contact;
+        this.address = address;
+        this.userType = userType;
+    }
+
+    /**
+     * Instantiates a new User.
+     */
+    public UserDto() {
+    }
+
+    /**
      * Gets name.
      *
      * @return the name
