@@ -21,17 +21,17 @@ import static org.junit.Assert.assertNotNull;
 @DirtiesContext
 public class ContactDaoIT {
 
-    @Autowired
-    private ContactDao contactDao;
-
-    @Test
-    public void testAddContact_contactIsOk_Success() {
-        Contact contact = createTestContact();
-
-        Optional<Long> result = contactDao.addContact(contact);
-
-        assertNotNull(result);
-    }
+//    @Autowired
+//    private ContactDao contactDao;
+//
+//    @Test
+//    public void testAddContact_contactIsOk_Success() {
+//        Contact contact = createTestContact();
+//
+//        Optional<Long> result = contactDao.addContact(contact);
+//
+//        assertNotNull(result);
+//    }
 
     private Contact createTestContact() {
         Contact contact = new Contact();
