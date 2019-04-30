@@ -1,7 +1,5 @@
 package com.epam.edu.htm.model;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-
 /**
  * User Model Object.
  *
@@ -34,7 +32,7 @@ public class User {
      * @param address  the address
      * @param userType the user type
      */
-    public User(Long userId, String password,String name, Contact contact, Address address, String userType) {
+    public User(Long userId, String password, String name, Contact contact, Address address, String userType) {
         this.userId = userId;
         this.password = password;
         this.name = name;
@@ -56,7 +54,7 @@ public class User {
      * @param password the password
      * @param userType the user type
      */
-    public User(Long userId, String password,String name, String userType) {
+    public User(Long userId, String password, String name, String userType) {
         this.userId = userId;
         this.password = password;
         this.name = name;
