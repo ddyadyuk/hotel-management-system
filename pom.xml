@@ -267,7 +267,11 @@
                     <groupId>org.jacoco</groupId>
                     <artifactId>jacoco-maven-plugin</artifactId>
                     <version>${jacoco.version}</version>
-
+                    <configuration>
+                        <excludes>
+                            <exclude>com.epam.edu.htm.model/*</exclude>
+                        </excludes>
+                    </configuration>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -362,6 +366,7 @@
                 <configuration>
                     <argLine>${surefireArgLine}</argLine>
                 </configuration>
+
             </plugin>
 
             <plugin>
