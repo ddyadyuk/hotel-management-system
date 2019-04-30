@@ -20,11 +20,11 @@
         <property name="dataSource" ref="dataSource"/>
     </bean>
 
-    <bean  id="jdbcTemplate" class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate">
+    <bean id="jdbcTemplate" class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate">
         <constructor-arg type="javax.sql.DataSource" ref="dataSource"/>
     </bean>
 
-    <bean id="jdbcUserDao" class="com.epam.edu.htm.dao.JdbcUserDao" >
+    <bean id="jdbcUserDao" class="com.epam.edu.htm.dao.JdbcUserDao">
         <constructor-arg name="namedParameterJdbcTemplate" ref="jdbcTemplate"/>
     </bean>
 </beans>
