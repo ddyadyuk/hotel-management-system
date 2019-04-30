@@ -1,5 +1,6 @@
 package com.epam.edu.htm.dao.config;
 
+import com.epam.edu.htm.dao.mapper.ContactMapper;
 import com.epam.edu.htm.dao.mapper.UserRowMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -24,4 +25,8 @@ public class DaoConfig {
         return new UserRowMapper();
     }
 
+    @Bean
+    public static ContactMapper contactMapper() {
+        return new ContactMapper();
+    }
 }
