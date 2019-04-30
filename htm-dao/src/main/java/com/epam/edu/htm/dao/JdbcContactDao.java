@@ -22,12 +22,12 @@ import java.util.Optional;
 @Component
 public class JdbcContactDao implements ContactDao {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(JdbcUserDao.class);
+    private final static Logger LOGGER = LoggerFactory.getLogger(JdbcUserDao.class);
 
-    private static final String CONTACT_ID = "contact_id";
-    private static final String EMAIL = "email";
-    private static final String PHONE = "phone";
-    private static final String NO_ADDRESS_IN_DB_MESSAGE = "There are no contact with corresponding 'id' : {}";
+    private final static String CONTACT_ID = "contact_id";
+    private final static String EMAIL = "email";
+    private final static String PHONE = "phone";
+    private final static String NO_ADDRESS_IN_DB_MESSAGE = "There are no contact with corresponding 'id' : {}";
 
 
     @Value("${add_contact}")

@@ -21,6 +21,9 @@ public class ContactService implements ContactOperations {
         if(contact == null) {
             throw new IllegalArgumentException(CONTACT_NOT_NULL_MESSAGE);
         }
+        if(!contactDao.addContact(contact).isPresent()){
+            throw new IllegalArgumentException("Method can't add this contact");
+        }
 
         return contactDao.addContact(contact).get();
     }
