@@ -45,6 +45,7 @@ public class UserService implements UserOperations {
         if (id == null) {
             throw new IllegalArgumentException("Parameter 'id can't be null'");
         }
+
         return dao.findUserById(id);
     }
 
