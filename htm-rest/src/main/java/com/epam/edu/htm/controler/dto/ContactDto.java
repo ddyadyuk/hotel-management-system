@@ -8,6 +8,14 @@ public class ContactDto {
 
     private String email;
 
+    public ContactDto(String phone, String email) {
+        this.phone = phone;
+        this.email = email;
+    }
+
+    public ContactDto() {
+    }
+
     public String getPhone() {
         return phone;
     }

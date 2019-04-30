@@ -1,6 +1,7 @@
 package com.epam.edu.htm.controler.controller;
 
 import com.epam.edu.htm.controler.dto.ContactDto;
+import com.epam.edu.htm.controler.dto.UserDto;
 import com.epam.edu.htm.controler.mapper.ContactMapper;
 import com.epam.edu.htm.core.service.impl.ContactService;
 import com.epam.edu.htm.model.Contact;
@@ -30,9 +31,8 @@ public class ContactController {
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
-    public @ResponseBody
-    Long addContact(@RequestBody ContactDto contactDto) {
-        LOGGER.debug("addContact method with parameters: {}", contactDto);
+    public @ResponseBody Long addContact(@RequestBody ContactDto contactDto){
+        LOGGER.debug("addContact method with parameters: {}", contactDto.toString());
 
         Contact contact = new Contact();
         BeanUtils.copyProperties(contactDto, contact);
@@ -42,8 +42,7 @@ public class ContactController {
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public @ResponseBody
-    Boolean deleteContact(@PathVariable("id") Long id) {
+    public @ResponseBody Boolean deleteContact(@PathVariable("id") Long id) {
         LOGGER.debug("delete method, deleted contact id is {}", id);
 
         return contactService.deleteContact(id);
