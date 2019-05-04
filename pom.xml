@@ -44,6 +44,7 @@
         <module>htm-dao</module>
         <module>htm-rest</module>
         <module>htm-rest-app</module>
+        <module>htm-client</module>
     </modules>
 
     <dependencyManagement>
