@@ -78,8 +78,9 @@ public class UserDaoTest {
         when(jdbcTemplate.update(any(), Mockito.any(MapSqlParameterSource.class), Mockito.any(GeneratedKeyHolder.class),
                 any(String[].class))).thenThrow(EmptyResultDataAccessException.class);
 
-        assertThrows(EmptyResultDataAccessException.class,() -> jdbcUserDao.addUser(user));
+        assertThrows(EmptyResultDataAccessException.class, () -> jdbcUserDao.addUser(user));
     }
+
     @Test
     public void testDeleteUser_UserIdNotNull_Success() {
 

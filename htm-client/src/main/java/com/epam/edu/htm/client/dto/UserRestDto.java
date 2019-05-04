@@ -1,4 +1,4 @@
-package com.epam.edu.htm.controler.dto;
+package com.epam.edu.htm.client.dto;
 
 import com.epam.edu.htm.model.Address;
 import com.epam.edu.htm.model.Contact;
@@ -7,7 +7,8 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import javax.validation.constraints.NotNull;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class UserDto {
+public class UserRestDto {
+
 
     @NotNull
     private String password;
@@ -30,7 +31,7 @@ public class UserDto {
      * @param address  the address
      * @param userType the user type
      */
-    public UserDto(String password,String name, Contact contact, Address address, String userType) {
+    public UserRestDto(String password, String name, Contact contact, Address address, String userType) {
         this.password = password;
         this.name = name;
         this.contact = contact;
@@ -39,13 +40,13 @@ public class UserDto {
     }
 
     /**
-     * Instantiates a new User dto.
+     * Instantiates a new User rest dto.
      *
      * @param password the password
      * @param name     the name
      * @param userType the user type
      */
-    public UserDto(String password, String name, String userType) {
+    public UserRestDto(String password, String name, String userType) {
         this.password = password;
         this.name = name;
         this.userType = userType;
@@ -54,7 +55,7 @@ public class UserDto {
     /**
      * Instantiates a new User.
      */
-    public UserDto() {
+    public UserRestDto() {
     }
 
     /**
@@ -149,12 +150,12 @@ public class UserDto {
 
     @Override
     public String toString() {
-        return "UserDto{" +
-                "password='" + password + '\'' +
-                ", name='" + name + '\'' +
-                ", contact=" + contact +
-                ", address=" + address +
-                ", userType='" + userType + '\'' +
-                '}';
+        return "UserRestDto{"
+                + "password='" + password + '\''
+                + ", name='" + name + '\''
+                + ", contact=" + contact
+                + ", address=" + address
+                + ", userType='" + userType + '\''
+                + '}';
     }
 }
