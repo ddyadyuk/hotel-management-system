@@ -21,8 +21,8 @@ public class RestUserDao implements UserRestDao {
     private static final Logger LOGGER = LoggerFactory.getLogger(RestUserDao.class);
 
     //    to properties
-    private static final String USER_WITHOUT_PARAMETERS = "http://localhost:8000/htm_rest_app_war_exploded/";
-    private static final String USER_WITH_PARAMETERS = "http://localhost:8000/htm_rest_app_war_exploded/{id}";
+    private static final String USER_WITHOUT_PARAMETERS = "http://localhost:8000/htm_rest_app_war_exploded/user";
+    private static final String USER_WITH_PARAMETERS = "http://localhost:8000/htm_rest_app_war_exploded/user/{id}";
     private static final String RESOURCE_NOT_FOUND = "Resource cannot be found";
 
     private RestTemplate restTemplate;

@@ -23,9 +23,6 @@ public class UserRestService implements UserRestOperations {
         if (user == null) {
             throw new IllegalArgumentException("Parameter 'user' cannot be null");
         }
-        if (!restUserDao.addUser(user).isPresent()) {
-            throw new IllegalArgumentException("The value is not present");
-        }
 
         return restUserDao.addUser(user).get();
     }
