@@ -14,13 +14,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.MergedContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -111,8 +109,27 @@ public class RestControllerTest {
     }
 
     @Test
-    public void testUpdateUser_RequestIsOk_Is() {
+    public void testUpdateUser_RequestIsOk_IsFound() throws Exception {
         when(userRestService.editUser(userRestDto)).thenReturn(true);
-        mockMvc.perform()
+        mockMvc.perform(post("/users/1/edit")
+                .accept(MediaType.APPLICATION_JSON_UTF8_VALUE)
+                .contentType(MediaType.APPLICATION_JSON_UTF8_VALUE)
+                .param("name", userRestDto.getName())
+                .requestAttr("user", userRestDto))
+                .andExpect(status().isFound())
+                .andExpect(view().name("redirect:/users/"));
+
+        verify(userRestService).editUser(any(UserRestDto.class));
+    }
+
+    @Test
+    public void testDeleteUser_RequestIsOk_IsFound() throws Exception {
+        when(userRestService.deleteUser(1L)).thenReturn(true);
+        mockMvc.perform(get("/users/1/delete")
+                .contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+                .andExpect(status().isFound())
+                .andExpect(view().name("redirect:/users/"));
+
+        verify(userRestService).deleteUser(anyLong());
     }
 }
