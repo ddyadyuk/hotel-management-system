@@ -54,14 +54,13 @@ public class UserRestController {
         return "redirect:/users/";
     }
 
-    @GetMapping("/users/{id}/edit")
-    public String editUser(@PathVariable("id") Long id,  Model model) {
+    @PostMapping("/users/{id}/edit")
+    public String editUser(@PathVariable("id") Long id, @ModelAttribute UserRestDto user) {
         LOGGER.debug("editUser method, user with id : {} will be edited.", id);
 
-        UserRestDto user = userRestService.findUserById(id);
-        model.addAttribute("user", user);
+        userRestService.editUser(user);
 
-        return "editUser";
+        return "redirect:/users/";
     }
 
     @GetMapping("/users/{id}/delete")
