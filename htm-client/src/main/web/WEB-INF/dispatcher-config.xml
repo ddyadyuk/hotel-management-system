@@ -8,11 +8,18 @@
     <context:component-scan base-package="com.epam.edu.htm"/>
     <mvc:annotation-driven/>
 
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/WEB-INF/templates"/>
+        <property name="suffix" value=".html"/>
+    </bean>
 
     <bean class="org.springframework.web.client.RestTemplate" id="restTemplate"/>
 
-    <bean class="com.epam.edu.htm.client.dao.impl.RestUserDao" id = "UserDao">
+    <bean class="com.epam.edu.htm.client.dao.impl.RestUserDao" id="userDao">
         <constructor-arg ref="restTemplate"/>
     </bean>
 
+    <bean class="com.epam.edu.htm.client.service.impl.UserRestService" id="restOperations">
+        <constructor-arg ref="userDao"/>
+    </bean>
 </beans>

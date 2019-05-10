@@ -95,7 +95,6 @@ public class    UserServiceTest {
     @Test
     public void testDeleteUser_EqualResult_Success(){
         Mockito.when(userDao.deleteUser(anyLong())).thenReturn(true);
-
         Boolean result = userService.deleteUser(anyLong());
 
         assertEquals(result, true);
