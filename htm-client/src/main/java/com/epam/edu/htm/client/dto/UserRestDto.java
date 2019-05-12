@@ -9,6 +9,7 @@ import javax.validation.constraints.NotNull;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class UserRestDto {
 
+    private Long id;
 
     @NotNull
     private String password;
@@ -22,6 +23,21 @@ public class UserRestDto {
 
     @NotNull
     private String userType;
+
+    /**
+     * Instantiates a new User rest dto.
+     *
+     * @param id       the id
+     * @param password the password
+     * @param name     the name
+     * @param userType the user type
+     */
+    public UserRestDto(Long id, String password, String name, String userType) {
+        this.id = id;
+        this.password = password;
+        this.name = name;
+        this.userType = userType;
+    }
 
     /**
      * Instantiates a new User.
@@ -56,6 +72,14 @@ public class UserRestDto {
      * Instantiates a new User.
      */
     public UserRestDto() {
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     /**

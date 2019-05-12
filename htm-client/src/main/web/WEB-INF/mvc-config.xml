@@ -9,7 +9,7 @@
 
     <bean class="org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver"
           id="templateResolver">
-        <property name="prefix" value="classpath:"/>
+        <property name="prefix" value="templates/"/>
         <property name="suffix" value=".html"/>
         <property name="templateMode" value="HTML"/>
     </bean>

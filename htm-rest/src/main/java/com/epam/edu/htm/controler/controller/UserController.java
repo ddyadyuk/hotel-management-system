@@ -59,9 +59,11 @@ public class UserController {
 
         List<UserDto> userDtos = new ArrayList<>();
         List<User> users = userService.findAllUsers();
-
-        for(User user : users) {
+        for (User user : users) {
+            LOGGER.debug("user:{}", user);
             UserDto userDto = UserMapper.INSTANCE.userToDto(user);
+            userDto.setId(user.getUserId());
+            LOGGER.debug("userDto:{}", userDto);
             userDtos.add(userDto);
         }
 
@@ -83,7 +85,7 @@ public class UserController {
     @ResponseStatus(HttpStatus.OK)
     public @ResponseBody
     Boolean editUser(@PathVariable("id") Long id, @Valid @RequestBody UserDto userDto) {
-        LOGGER.debug("editUser(): user with id: {} and name: {} will be edited", id, userDto.getName());
+        LOGGER.debug("editUser(): user with id: {} and userDto: {} will be edited", id, userDto);
 
         User user = new User();
         BeanUtils.copyProperties(userDto, user);

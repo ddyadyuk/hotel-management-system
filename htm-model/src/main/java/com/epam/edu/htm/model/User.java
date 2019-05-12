@@ -23,11 +23,13 @@ public class User {
 
     private String userType;
 
+
     /**
      * Instantiates a new User.
      *
      * @param userId   the user id
      * @param password the password
+     * @param name     the name
      * @param contact  the contact
      * @param address  the address
      * @param userType the user type
