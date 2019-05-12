@@ -46,7 +46,7 @@ public class RestUserDaoTest {
 
     @Before
     public void setUp() {
-        userRestDto = new UserRestDto("qwerty", "John", "user");
+        userRestDto = new UserRestDto(1L,"qwerty", "John", "user");
     }
 
     @AfterEach
@@ -124,7 +124,7 @@ public class RestUserDaoTest {
 
     @Test
     public void testFindUserById_IdIsFine_Success() {
-        UserRestDto userRestDto = new UserRestDto("qwerty", "John", "user");
+        UserRestDto userRestDto = new UserRestDto(1L, "qwerty", "John", "user");
         LOGGER.debug("userRestDto is: {}", userRestDto);
 
         when(restTemplate.getForObject(USER_WITH_PARAMETERS, UserRestDto.class, 1L))

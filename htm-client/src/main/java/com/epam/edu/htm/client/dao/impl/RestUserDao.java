@@ -99,14 +99,14 @@ public class RestUserDao implements UserRestDao {
 
     @Override
     public Boolean editUser(UserRestDto user) {
-        LOGGER.debug("editUser rest method with user: {}", user);
+        LOGGER.debug("editUser rest method with user: {} & id:{}", user, user.getId());
 
-        HttpEntity<?> entity = new HttpEntity<>(createHttpHeaders());
+        HttpEntity<?> entity = new HttpEntity<>(user, createHttpHeaders());
         Boolean isUserEdited;
 
         try {
             ResponseEntity<Boolean> response = restTemplate
-                    .exchange(USER_WITHOUT_PARAMETERS, HttpMethod.PUT, entity, Boolean.class);
+                    .exchange(USER_WITH_PARAMETERS, HttpMethod.PUT, entity, Boolean.class, user.getId());
             isUserEdited = response.getBody();
         } catch (HttpClientErrorException.NotFound e) {
             LOGGER.debug(RESOURCE_NOT_FOUND);

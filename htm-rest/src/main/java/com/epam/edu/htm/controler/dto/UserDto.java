@@ -9,6 +9,8 @@ import javax.validation.constraints.NotNull;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class UserDto {
 
+    private Long id;
+
     @NotNull
     private String password;
 
@@ -23,14 +25,17 @@ public class UserDto {
     private String userType;
 
     /**
-     * Instantiates a new User.
+     * Instantiates a new User dto.
      *
+     * @param id       the id
      * @param password the password
+     * @param name     the name
      * @param contact  the contact
      * @param address  the address
      * @param userType the user type
      */
-    public UserDto(String password,String name, Contact contact, Address address, String userType) {
+    public UserDto(Long id, String password, String name, Contact contact, Address address, String userType) {
+        this.id = id;
         this.password = password;
         this.name = name;
         this.contact = contact;
@@ -55,6 +60,24 @@ public class UserDto {
      * Instantiates a new User.
      */
     public UserDto() {
+    }
+
+    /**
+     * Gets id.
+     *
+     * @return the id
+     */
+    public Long getId() {
+        return id;
+    }
+
+    /**
+     * Sets id.
+     *
+     * @param id the id
+     */
+    public void setId(Long id) {
+        this.id = id;
     }
 
     /**

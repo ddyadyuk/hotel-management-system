@@ -8,10 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -45,19 +42,36 @@ public class UserRestController {
         return "user";
     }
 
+    @GetMapping("/users/add")
+    public String addUserPage(Model model) {
+        LOGGER.debug("addUserPage()");
+        model.addAttribute("user", new UserRestDto());
+
+        return "addUser";
+    }
+
     @PostMapping("/users/add")
     public String addUser(@ModelAttribute @Validated UserRestDto userRestDto) {
         LOGGER.debug("addUser rest method.");
         Long id = userRestService.addUser(userRestDto);
+        userRestDto.setId(id);
         LOGGER.debug("User with id: {} was added.", id);
 
         return "redirect:/users/";
     }
 
+    @GetMapping("/users/{id}/edit")
+    public String editUserPage(@PathVariable("id") Long id,  Model model) {
+        LOGGER.debug("User with id:{} will be edited", id);
+        UserRestDto user = userRestService.findUserById(id);
+        model.addAttribute("user", user);
+
+        return "editUser";
+    }
+
     @PostMapping("/users/{id}/edit")
     public String editUser(@PathVariable("id") Long id, @ModelAttribute UserRestDto user) {
-        LOGGER.debug("editUser method, user with id : {} will be edited.", id);
-
+        LOGGER.debug("editUser method, user with id : {} will be edited.", user.getId());
         userRestService.editUser(user);
 
         return "redirect:/users/";

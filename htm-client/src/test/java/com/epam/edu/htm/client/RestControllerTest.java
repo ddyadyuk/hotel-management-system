@@ -47,7 +47,7 @@ public class RestControllerTest {
         viewResolver.setSuffix(".html");
         viewResolver.setPrefix("/WEB-INF/templates/");
 
-        userRestDto = new UserRestDto("password", "Yuri", "user");
+        userRestDto = new UserRestDto(1L, "password", "Yuri", "user");
         userRestDtoList = new ArrayList<>();
         userRestDtoList.add(userRestDto);
         userRestDtoList.add(userRestDto);
