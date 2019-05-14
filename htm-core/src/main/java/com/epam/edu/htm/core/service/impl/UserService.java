@@ -5,7 +5,6 @@ import com.epam.edu.htm.core.service.UserOperations;
 import com.epam.edu.htm.model.User;
 
 import java.util.List;
-import java.util.Optional;
 
 public class UserService implements UserOperations {
     private UserDao dao;
@@ -20,11 +19,9 @@ public class UserService implements UserOperations {
         if (user == null) {
             throw new IllegalArgumentException("Parameter 'user' can't be null");
         }
-        Optional<Long> result = dao.addUser(user);
-        if (!result.isPresent()) {
-            throw new IllegalArgumentException("The value is not present");
-        }
-        return result.get();
+
+        return dao.addUser(user)
+                .orElseThrow(() -> new IllegalArgumentException("The value is not present"));
     }
 
     @Override
@@ -51,7 +48,7 @@ public class UserService implements UserOperations {
 
     @Override
     public Boolean editUser(User user) {
-        if (user == null || user.getUserId() == null || user.getUserId() < 0) {
+        if (user == null) {
             throw new IllegalArgumentException("Parameter 'userId' can't be null or lower than 0");
         }
         return dao.editUser(user);
