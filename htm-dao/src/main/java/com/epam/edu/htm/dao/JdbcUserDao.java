@@ -68,7 +68,7 @@ public class JdbcUserDao implements UserDao {
 //                .addValue(USER_CONTACT_ID, user.getContact().getContactId())
 //                .addValue(USER_ADDRESS_ID, user.getAddress().getAddressId())
 
-        int rowNumber = 0;
+        int rowNumber;
         try {
             rowNumber = namedParameterJdbcTemplate.update(insertQuery, mapSqlParameterSource, keyHolder,
                     new String[]{ID_USER});
@@ -90,7 +90,7 @@ public class JdbcUserDao implements UserDao {
         }
 
         MapSqlParameterSource mapSqlParameterSource = new MapSqlParameterSource(ID_USER, id);
-        int rowNumber = 0;
+        int rowNumber;
 
         try {
             rowNumber = namedParameterJdbcTemplate.update(deleteQuery, mapSqlParameterSource);
@@ -128,7 +128,7 @@ public class JdbcUserDao implements UserDao {
 
     @Override
     public Boolean editUser(User user) {
-        if (user == null) {
+        if (user == null || user.getUserId() == null || user.getUserId() < 0) {
             throw new IllegalArgumentException(ID_PARAMETER_MESSAGE);
         }
         MapSqlParameterSource mapSqlParameterSource = new MapSqlParameterSource();
@@ -138,7 +138,7 @@ public class JdbcUserDao implements UserDao {
                 .addValue(USER_TYPE, user.getUserType())
                 .addValue(ID_USER, user.getUserId());
 
-        int rowNumber = 0;
+        int rowNumber;
         try {
             rowNumber = namedParameterJdbcTemplate.update(updateQuery, mapSqlParameterSource);
         } catch (EmptyResultDataAccessException e) {

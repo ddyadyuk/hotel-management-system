@@ -78,15 +78,6 @@ public class AddressDaoTest {
         assertThrows(IllegalArgumentException.class, () -> jdbcAddressDao.addAddress(null));
     }
 
-    @Test
-    public void testAddAddress_AddressNotAdded_EmptyResultEx() {
-        Address address = createTestAddress();
-
-        when(namedParameterJdbcTemplate.update(any(), any(MapSqlParameterSource.class),
-                any(KeyHolder.class), any(String[].class))).thenReturn(0);
-
-        assertThrows(EmptyResultDataAccessException.class, () -> jdbcAddressDao.addAddress(address));
-    }
 
     @Test
     public void testEditAddress_CorrectIdISPresent_Success() {
