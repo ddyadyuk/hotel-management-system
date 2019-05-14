@@ -11,7 +11,6 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
-import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -149,6 +148,7 @@ public class UserDaoTest {
     @Test
     public void testEditUser_userIsOk_Success() {
         User user = createTestUser();
+        user.setUserId(1L);
 
         when(jdbcTemplate.update(any(), any(MapSqlParameterSource.class))).thenReturn(1);
 
@@ -165,6 +165,7 @@ public class UserDaoTest {
     @Test
     public void testEditUser_UpdateValueIsZero_fail() {
         User user = createTestUser();
+        user.setUserId(1L);
 
         when(jdbcTemplate.update(any(), any(MapSqlParameterSource.class))).thenReturn(0);
 
@@ -175,9 +176,9 @@ public class UserDaoTest {
     public void testEditUser_DataAccessWasThrown_Fail() {
         User user = createTestUser();
 
-        when(jdbcTemplate.update(any(), any(MapSqlParameterSource.class))).thenThrow(EmptyResultDataAccessException.class);
+        when(jdbcTemplate.update(any(), any(MapSqlParameterSource.class))).thenThrow(IllegalArgumentException.class);
 
-        assertThrows(EmptyResultDataAccessException.class, () -> jdbcUserDao.editUser(user));
+        assertThrows(IllegalArgumentException.class, () -> jdbcUserDao.editUser(user));
     }
 
     private User createTestUser() {
