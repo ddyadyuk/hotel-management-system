@@ -15,7 +15,6 @@ import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 
 @Component
@@ -70,25 +69,21 @@ public class JdbcAddressDao implements AddressDao {
                 .addValue(STREET, address.getStreet())
                 .addValue(POSTAL_CODE, address.getPostalCode());
 
-        int rowNumber = 0;
         try {
-            rowNumber = namedParameterJdbcTemplate.update(addAddressQuery, mapSqlParameterSource, keyHolder,
+            namedParameterJdbcTemplate.update(addAddressQuery, mapSqlParameterSource, keyHolder,
                     new String[]{ADDRESS_ID});
-            if (rowNumber == 0) {
-                throw new EmptyResultDataAccessException(rowNumber);
-            }
         } catch (EmptyResultDataAccessException e) {
             LOGGER.debug("This Address can't be added", e);
             throw e;
         }
 
-        return Optional.of(Objects.requireNonNull(keyHolder.getKey()).longValue());
+        return Optional.of(keyHolder.getKey().longValue());
     }
 
     @Override
     public Boolean editAddress(Address address) {
 
-        if (address == null) {
+        if (address == null || address.getAddressId() == null || address.getAddressId() < 0) {
             throw new IllegalArgumentException(ADDRESS_NOT_NULL_MESSAGE);
         }
 
@@ -101,12 +96,8 @@ public class JdbcAddressDao implements AddressDao {
                 .addValue(STREET, address.getStreet())
                 .addValue(POSTAL_CODE, address.getPostalCode());
 
-        int rowNumber = 0;
         try {
-            rowNumber = namedParameterJdbcTemplate.update(updateAddressQuery, mapSqlParameterSource);
-            if (rowNumber == 0) {
-                throw new EmptyResultDataAccessException(rowNumber);
-            }
+            namedParameterJdbcTemplate.update(updateAddressQuery, mapSqlParameterSource);
         } catch (EmptyResultDataAccessException e) {
             LOGGER.debug(ADDRESS_ID_INFORMATION_MESSAGE, e);
             throw e;
@@ -142,20 +133,15 @@ public class JdbcAddressDao implements AddressDao {
 
     @Override
     public Boolean deleteAddress(Long id) {
-        if(id == null) {
+        if (id == null) {
             throw new IllegalArgumentException(ADDRESS_ID_NOT_NULL_MESSAGE);
         }
 
         MapSqlParameterSource mapSqlParameterSource = new MapSqlParameterSource(ADDRESS_ID, id);
 
-        int rowNubmer = 0;
-        try{
-            rowNubmer = namedParameterJdbcTemplate.update(deleteAddressQuery, mapSqlParameterSource);
-            if(rowNubmer == 0) {
-                throw new EmptyResultDataAccessException(rowNubmer);
-            }
-        }
-        catch (EmptyResultDataAccessException e){
+        try {
+            namedParameterJdbcTemplate.update(deleteAddressQuery, mapSqlParameterSource);
+        } catch (EmptyResultDataAccessException e) {
             LOGGER.debug(ADDRESS_ID_INFORMATION_MESSAGE);
             throw e;
         }

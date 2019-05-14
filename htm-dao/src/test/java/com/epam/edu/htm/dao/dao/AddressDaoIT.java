@@ -89,10 +89,6 @@ public class AddressDaoIT {
         assertThrows(IllegalArgumentException.class, () -> addressDao.deleteAddress(null));
     }
 
-    @Test
-    public void testDeleteAddress_AddressIsAbsentInDB_Fail() {
-        assertThrows(EmptyResultDataAccessException.class, () -> addressDao.deleteAddress(20L));
-    }
     private Address createTestAddress() {
         return new Address(1L, "Europe", "Belarus", "Brest region", "Brest", "Masherova", "12345");
     }
