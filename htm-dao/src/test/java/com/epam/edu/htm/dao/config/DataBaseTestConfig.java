@@ -1,7 +1,9 @@
 package com.epam.edu.htm.dao.config;
 
+import com.epam.edu.htm.core.dao.AddressDao;
 import com.epam.edu.htm.core.dao.ContactDao;
 import com.epam.edu.htm.core.dao.UserDao;
+import com.epam.edu.htm.dao.JdbcAddressDao;
 import com.epam.edu.htm.dao.JdbcContactDao;
 import com.epam.edu.htm.dao.JdbcUserDao;
 import org.springframework.context.annotation.Bean;
@@ -53,5 +55,9 @@ public class DataBaseTestConfig {
         return new JdbcContactDao(namedParameterJdbcTemplate());
     }
 
+    @Bean
+    public AddressDao addressDao() {
+        return new JdbcAddressDao(namedParameterJdbcTemplate());
+    }
 
 }

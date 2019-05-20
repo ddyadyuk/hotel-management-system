@@ -3,20 +3,20 @@ CREATE SCHEMA IF NOT EXISTS FLYWAY AUTHORIZATION hotel_user;
 
 SET SEARCH_PATH TO HTM;
 
-DROP TABLE IF EXISTS address CASCADE;
-DROP TABLE IF EXISTS contact CASCADE;
-DROP TABLE IF EXISTS hotel CASCADE;
-DROP TABLE IF EXISTS room_capacity CASCADE;
-DROP TABLE IF EXISTS room_type CASCADE;
-DROP TABLE IF EXISTS room CASCADE;
-DROP TABLE IF EXISTS user_type CASCADE;
-DROP TABLE IF EXISTS "user" CASCADE;
-DROP TABLE IF EXISTS guest CASCADE;
-DROP TABLE IF EXISTS reservation CASCADE;
+DROP TABLE IF EXISTS HTM.address CASCADE;
+DROP TABLE IF EXISTS HTM.contact CASCADE;
+DROP TABLE IF EXISTS HTM.hotel CASCADE;
+DROP TABLE IF EXISTS HTM.room_capacity CASCADE;
+DROP TABLE IF EXISTS HTM.room_type CASCADE;
+DROP TABLE IF EXISTS HTM.room CASCADE;
+DROP TABLE IF EXISTS HTM.user_type CASCADE;
+DROP TABLE IF EXISTS HTM."user" CASCADE;
+DROP TABLE IF EXISTS HTM.guest CASCADE;
+DROP TABLE IF EXISTS HTM.reservation CASCADE;
 
 -- Table address
 
-CREATE TABLE IF NOT EXISTS address
+CREATE TABLE IF NOT EXISTS HTM.address
 (
     id_address  BIGSERIAL
         constraint address_pkey
@@ -33,7 +33,7 @@ CREATE TABLE IF NOT EXISTS address
     UPDATED_TS  TIMESTAMP
 );
 -- Table Contact
-CREATE TABLE IF NOT EXISTS contact
+CREATE TABLE IF NOT EXISTS HTM.contact
 (
     CONTACT_ID BIGSERIAL
         constraint contact_id
@@ -49,7 +49,7 @@ CREATE TABLE IF NOT EXISTS contact
 
 -- Table hotel
 
-CREATE TABLE IF NOT EXISTS hotel
+CREATE TABLE IF NOT EXISTS HTM.hotel
 (
     id_hotel   BIGSERIAL   NOT NULL,
     contact    BIGINT      NOT NULL,
@@ -71,7 +71,7 @@ CREATE TABLE IF NOT EXISTS hotel
 );
 
 -- Table room_capacity
-CREATE TABLE IF NOT EXISTS room_capacity
+CREATE TABLE IF NOT EXISTS HTM.room_capacity
 (
     id_room_capacity BIGSERIAL NOT NULL,
     capacity         INT       NOT NULL,
@@ -82,7 +82,7 @@ CREATE TABLE IF NOT EXISTS room_capacity
     PRIMARY KEY (id_room_capacity)
 );
 -- Table room_type
-CREATE TABLE IF NOT EXISTS room_type
+CREATE TABLE IF NOT EXISTS HTM.room_type
 (
     id_room_type BIGSERIAL   NOT NULL,
     type_name    VARCHAR(45) NOT NULL,
@@ -93,7 +93,7 @@ CREATE TABLE IF NOT EXISTS room_type
     PRIMARY KEY (id_room_type)
 );
 -- Table room
-CREATE TABLE IF NOT EXISTS room
+CREATE TABLE IF NOT EXISTS HTM.room
 (
     id_room        BIGSERIAL   NOT NULL,
     status         VARCHAR(45) NOT NULL,
@@ -122,7 +122,7 @@ CREATE TABLE IF NOT EXISTS room
         ON UPDATE NO ACTION
 );
 -- Table user_type
-CREATE TABLE IF NOT EXISTS user_type
+CREATE TABLE IF NOT EXISTS HTM.user_type
 (
     id_user_type BIGSERIAL   NOT NULL,
     type_name    VARCHAR(45) NOT NULL,
@@ -134,7 +134,7 @@ CREATE TABLE IF NOT EXISTS user_type
 );
 -- Table user
 
-CREATE TABLE IF NOT EXISTS "user"
+CREATE TABLE IF NOT EXISTS HTM."user"
 (
     id_user    BIGSERIAL   NOT NULL,
     password   VARCHAR(45) NOT NULL,
@@ -159,7 +159,7 @@ CREATE TABLE IF NOT EXISTS "user"
 
 
 -- Table guest
-CREATE TABLE IF NOT EXISTS guest
+CREATE TABLE IF NOT EXISTS HTM.guest
 (
     GUEST_ID BIGSERIAL NOT NULL,
     USER_ID  BIGINT    NOT NULL,
@@ -174,7 +174,7 @@ CREATE TABLE IF NOT EXISTS guest
         ON UPDATE NO ACTION
 );
 -- Table reservation
-CREATE TABLE IF NOT EXISTS reservation
+CREATE TABLE IF NOT EXISTS HTM.reservation
 (
     id_reservation BIGSERIAL   not null,
     country        VARCHAR(45) NOT NULL,
