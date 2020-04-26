@@ -28,7 +28,7 @@
         <servlet-api.version>3.0.1</servlet-api.version>
         <failsafe.version>3.0.0-M3</failsafe.version>
         <logback.version>1.0.1</logback.version>
-        <jackson.version>2.9.5</jackson.version>
+        <jackson.version>2.11.0</jackson.version>
         <hibernate-validator.version>6.0.13.Final</hibernate-validator.version>
         <validation-api.version>2.0.1.Final</validation-api.version>
         <validator-cdi.version>6.0.16.Final</validator-cdi.version>
